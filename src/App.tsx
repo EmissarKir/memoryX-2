@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ThemeProvider } from "styled-components";
+import { baseTheme } from "./styles/theme";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import GlobalStyle from "./styles/global";
+
+import Sidebar from "./components/ui/sidebar";
+import UserPanel from "./components/ui/userPanel";
+import MainContainer from "./components/styles/mainContainer";
+import QuestionsPage from "./components/pages/questionsPage";
+import CreateTestPage from "./components/pages/createTestPage";
+import TestPage from "./components/pages/testPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={baseTheme}>
+        <Sidebar />
+        <MainContainer>
+          <UserPanel />
+          <Routes>
+            <Route path="qustionsPage" element={<QuestionsPage />} />
+            <Route path="/" element={<TestPage />} />
+            <Route path="tests/create" element={<CreateTestPage />} />
+          </Routes>
+        </MainContainer>
+        <GlobalStyle />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
