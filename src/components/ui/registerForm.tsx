@@ -1,16 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import * as yup from "yup";
+import React from "react";
 import styled from "styled-components";
+import * as yup from "yup";
 import {
   StyledButton,
   StyledLink,
   StyledPage,
   StyledTitle2,
 } from "../../styles/styles";
+import FormComponent from "../common/forms/form";
 import TextFiled from "../common/forms/textFiled";
 import Flex from "../styles/flex";
-
-type Props = {};
 
 const StyledRegisterForm = styled.div`
   width: 400px;
@@ -26,41 +25,7 @@ const StyledButtonWithForm = styled(StyledButton)`
   text-transform: uppercase;
 `;
 
-interface IUser {
-  name: string;
-  email: string;
-  password: string;
-}
-export default function RegisterForm({}: Props) {
-  const [data, setData] = useState<IUser>({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState<{ [key: string]: any }>({});
-
-  const changeHandler = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setData((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
-  };
-
-  useEffect(() => {
-    validate();
-  }, [data]);
-  // функция устанавливает ошибки в error state и возвращает true если нет ошибок. Предотвращает отправку формы если есть ошибки
-  const validate = () => {
-    validateScheme
-      .validate(data)
-      .then(() => setErrors({}))
-      .catch((err) => setErrors({ [err.path]: err.message }));
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const isValidButton = Object.keys(errors).length === 0;
-
+export default function RegisterForm() {
   const validateScheme = yup.object().shape({
     password: yup
       .string()
@@ -79,55 +44,43 @@ export default function RegisterForm({}: Props) {
       .min(3, "Поле <Имя> должно содержать минимум 3 символа"),
   });
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const isValid = validate();
-    if (!isValid) return;
-    console.log("SUBMIT", data);
-    setData({
-      name: "",
-      email: "",
-      password: "",
-    });
+  type dataProps = {
+    name: string;
+    email: string;
+    password: string;
+  };
+
+  const handleSubmit = (data: dataProps) => {
+    console.log("data", data);
   };
   return (
     <StyledPage>
       <Flex justify="center" align="center" direction="column">
         <StyledRegisterForm>
           <StyledTitle2>РЕГИСТРАЦИЯ</StyledTitle2>
-          <form onSubmit={handleSubmit}>
+          <FormComponent
+            onSubmit={handleSubmit}
+            validateScheme={validateScheme}
+          >
             <TextFiled
               name="name"
               placeholder="Введите имя"
               type="text"
-              value={data.name}
-              onChange={changeHandler}
-              error={errors.name}
               autoFocus
             />
-            <TextFiled
-              placeholder="Введите email"
-              name="email"
-              type="email"
-              value={data.email}
-              onChange={changeHandler}
-              error={errors.email}
-            />
+            <TextFiled placeholder="Введите email" name="email" type="email" />
             <TextFiled
               placeholder="Введите пароль"
               name="password"
               type="password"
-              value={data.password}
-              onChange={changeHandler}
-              error={errors.password}
             />
-            <StyledButtonWithForm disabled={!isValidButton}>
+            <StyledButtonWithForm>
               <span>
                 <i className="fa-solid fa-user-plus"></i>
               </span>
               зарегистрироваться
             </StyledButtonWithForm>
-          </form>
+          </FormComponent>
           <StyledLink to="/">ВХОД</StyledLink>
         </StyledRegisterForm>
       </Flex>

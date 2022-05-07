@@ -1,19 +1,20 @@
 import React from "react";
 import * as S from "../../../styles/styles";
 
+// временно необязательные поля onChange
 interface ITextFieldProps {
   label?: string;
   placeholder?: string;
   type: string;
   name: string;
-  value: string;
+  value?: string;
   colorBg?: string;
   color?: string;
   error?: string;
   margin?: string;
   padding?: string;
   autoFocus?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function TextFiled({
