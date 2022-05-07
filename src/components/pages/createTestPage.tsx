@@ -34,7 +34,7 @@ export default function CreateTestPage({}: Props) {
           </StyledTextMuted>
           <TextFiled
             type="text"
-            placeholder="Найти вопрос"
+            placeholder="Например: '100 английских слов'"
             name="search"
             value={test}
             onChange={changeHandler}

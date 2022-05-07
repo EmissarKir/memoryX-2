@@ -5,6 +5,7 @@ interface StyledSidebarProps {}
 
 const StyledSidebar = styled.div<StyledSidebarProps>`
   position: fixed;
+  z-index: 999;
   top: 0;
   left: 0;
   bottom: 0;

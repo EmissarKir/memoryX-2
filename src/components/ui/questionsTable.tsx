@@ -205,29 +205,35 @@ const dataTable = [
     createdByHours: "5:21 PM",
   },
 ];
+// const columns = {
+//   question: { name: "Вопрос" },
+//   answer: { name: "Ответ" },
+//   count: { name: "Count" },
+//   status: { name: "Status" },
+//   left: { name: "Остаток" },
+//   createdBy: { name: "Created By" },
+// };
 
 export default function QuestionsTable({}: Props) {
   return (
     <StyledQuestionsTable>
       <table>
-        <thead>
-          <tr>
-            <td>Вопрос</td>
-            <td>Ответ</td>
-            <td>Count</td>
-            <td>Status</td>
-            <td>Остаток</td>
-            <td>Created By</td>
-          </tr>
-        </thead>
+        <tr>
+          <td>Вопрос</td>
+          <td>Ответ</td>
+          <td>Count</td>
+          <td>status</td>
+          <td>Left</td>
+          <td>Created By</td>
+        </tr>
         <tbody>
           {dataTable.map((item) => {
             return (
               <tr key={item.id}>
                 <td>{item.question}</td>
                 <td>{item.answer}</td>
-                <td> {item.count}</td>
-                <td> {item.status}</td>
+                <td>{item.count}</td>
+                <td>{item.status}</td>
                 <td> {item.left}</td>
                 <td>
                   <div className="date">

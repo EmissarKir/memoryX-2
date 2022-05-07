@@ -9,6 +9,10 @@ interface ITextFieldProps {
   value: string;
   colorBg?: string;
   color?: string;
+  error?: string;
+  margin?: string;
+  padding?: string;
+  autoFocus?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -21,9 +25,18 @@ export default function TextFiled({
   value,
   colorBg,
   color,
+  error,
+  margin,
+  padding,
+  autoFocus,
 }: ITextFieldProps) {
   return (
-    <S.StyledTextField colorBg={colorBg} color={color}>
+    <S.StyledTextField
+      colorBg={colorBg}
+      color={color}
+      margin={margin}
+      padding={padding}
+    >
       <div>
         {label ? <label htmlFor={name}>{label}</label> : null}
         <input
@@ -33,7 +46,9 @@ export default function TextFiled({
           name={name}
           placeholder={placeholder}
           onChange={onChange}
+          autoFocus
         />
+        {error && <S.InvalidText>{error}</S.InvalidText>}
       </div>
     </S.StyledTextField>
   );

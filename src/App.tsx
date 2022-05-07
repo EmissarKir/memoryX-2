@@ -11,6 +11,8 @@ import MainContainer from "./components/styles/mainContainer";
 import QuestionsPage from "./components/pages/questionsPage";
 import CreateTestPage from "./components/pages/createTestPage";
 import TestPage from "./components/pages/testPage";
+import WrapperUserList from "./exampleComponents/wrapperUserList";
+import LoginPage from "./components/pages/loginPage";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="qustionsPage" element={<QuestionsPage />} />
             <Route path="/" element={<TestPage />} />
             <Route path="tests/create" element={<CreateTestPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="example" element={<WrapperUserList />} />
           </Routes>
         </MainContainer>
         <GlobalStyle />
