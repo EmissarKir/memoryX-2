@@ -51,7 +51,10 @@ export const StyledTitle2 = styled.h2`
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textDark};
 `;
-export const StyledLink = styled(NavLink)<{ margin?: string; align?: string }>`
+export const StyledLink = styled(NavLink)<{
+  margin?: string;
+  align?: string;
+}>`
   display: inline-block;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.accentDark};
@@ -76,7 +79,11 @@ const buttonStyles = css`
 `;
 
 export const StyledButton = styled.button`
-  ${buttonStyles}
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  ${buttonStyles};
 `;
 
 export const StyledNavLinkWithIcon = styled(NavLink)`

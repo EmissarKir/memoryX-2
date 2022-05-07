@@ -49,6 +49,7 @@ export default function RegisterForm({}: Props) {
   useEffect(() => {
     validate();
   }, [data]);
+  // функция устанавливает ошибки в error state и возвращает true если нет ошибок. Предотвращает отправку формы если есть ошибки
   const validate = () => {
     validateScheme
       .validate(data)
@@ -57,6 +58,8 @@ export default function RegisterForm({}: Props) {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+  const isValidButton = Object.keys(errors).length === 0;
 
   const validateScheme = yup.object().shape({
     password: yup
@@ -78,8 +81,9 @@ export default function RegisterForm({}: Props) {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    const isValid = validate();
+    if (!isValid) return;
     console.log("SUBMIT", data);
-
     setData({
       name: "",
       email: "",
@@ -117,7 +121,7 @@ export default function RegisterForm({}: Props) {
               onChange={changeHandler}
               error={errors.password}
             />
-            <StyledButtonWithForm>
+            <StyledButtonWithForm disabled={!isValidButton}>
               <span>
                 <i className="fa-solid fa-user-plus"></i>
               </span>
