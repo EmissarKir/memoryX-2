@@ -14,7 +14,7 @@ import TestPage from "./components/pages/testPage";
 import LoginPage from "./components/pages/loginPage";
 import LogOut from "./components/pages/logOut";
 import { CustomRouter } from "./customRouter";
-import customHistory from "./history";
+import customHistory from "./utils/history";
 
 function App() {
   return (
