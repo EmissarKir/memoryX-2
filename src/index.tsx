@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 const store = createStore();
 
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

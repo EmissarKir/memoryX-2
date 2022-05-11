@@ -4,6 +4,7 @@ import React, {
   PropsWithChildren,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -30,12 +31,15 @@ const FormComponent: FC<Props> = ({
 }) => {
   const [data, setData] = useState<{ [key: string]: any }>(defaultData || {});
   const [errors, setErrors] = useState<{ [key: string]: any }>({});
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setData((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
-  };
+  const handleChange = useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement>) => {
+      setData((prevState) => ({
+        ...prevState,
+        [target.name]: target.value,
+      }));
+    },
+    []
+  );
   // функция устанавливает ошибки в error state и возвращает true если нет ошибок. Предотвращает отправку формы если есть ошибки
   const validate = () => {
     validateScheme
@@ -46,7 +50,7 @@ const FormComponent: FC<Props> = ({
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 interface StyledSidebarProps {}
@@ -63,28 +64,44 @@ export default function Sidebar({}: Props) {
     <StyledSidebar>
       <ul>
         <li>
-          <a href="/">
+          <NavLink to="/">
             <span>
               <i className="icons fa-solid fa-house"></i>
             </span>
             <span className="title">Мои тесты</span>
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="/">
+          <NavLink to="/tests/create">
             <span>
               <i className="icons fa-solid fa-circle-plus"></i>
             </span>
             <span className="title">Создать тест</span>
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="/">
+          <NavLink to="/login">
+            <span>
+              <i className="icons fa-solid fa-arrow-right-to-bracket"></i>
+            </span>
+            <span className="title">Вход</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/register">
+            <span>
+              <i className="icons fa-solid fa-user-plus"></i>
+            </span>
+            <span className="title">Регистрация</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/logout">
             <span>
               <i className="icons fa-solid fa-right-from-bracket"></i>
             </span>
             <span className="title">Выйти</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
     </StyledSidebar>

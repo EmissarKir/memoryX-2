@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import EmptyTestPage from "./emptyTestPage";
 import TestsListPage from "./testsListPage";
-import { loadTests } from "../../store/test";
+import { getTests, loadTests } from "../../store/tests";
 import { AppDispatch } from "../..";
 
-interface ITests {
-  id: number;
-  name: string;
-}
 type Props = {};
-
-const testsArray = [];
 
 export default function TestPage({}: Props) {
   const dispatch: AppDispatch = useDispatch();
-  // const [tests, setTests] = useState<ITests[]>([]);
+  const tests = useSelector(getTests());
+  console.log("tests", tests);
 
   useEffect(() => {
     dispatch(loadTests());
   }, []);
 
-  return testsArray.length === 0 ? <EmptyTestPage /> : <TestsListPage />;
+  return tests.length === 0 ? (
+    <EmptyTestPage />
+  ) : (
+    <TestsListPage tests={tests} />
+  );
 }

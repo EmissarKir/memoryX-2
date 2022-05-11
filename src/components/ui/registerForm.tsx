@@ -1,23 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
-import {
-  StyledButton,
-  StyledLink,
-  StyledPage,
-  StyledTitle2,
-} from "../../styles/styles";
+import { AppDispatch } from "../..";
+import { signUp } from "../../store/users";
+import { StyledButton } from "../../styles/styles";
+import { IUser } from "../../types/types";
 import FormComponent from "../common/forms/form";
 import TextFiled from "../common/forms/textFiled";
-import Flex from "../styles/flex";
-
-const StyledRegisterForm = styled.div`
-  width: 400px;
-  text-align: center;
-  & > *:not(:last-child) {
-    margin-bottom: 20px;
-  }
-`;
 
 const StyledButtonWithForm = styled(StyledButton)`
   width: 100%;
@@ -26,6 +17,9 @@ const StyledButtonWithForm = styled(StyledButton)`
 `;
 
 export default function RegisterForm() {
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+
   const validateScheme = yup.object().shape({
     password: yup
       .string()
@@ -44,46 +38,21 @@ export default function RegisterForm() {
       .min(3, "Поле <Имя> должно содержать минимум 3 символа"),
   });
 
-  type dataProps = {
-    name: string;
-    email: string;
-    password: string;
-  };
-
-  const handleSubmit = (data: dataProps) => {
-    console.log("data", data);
+  const handleSubmit = (data: IUser) => {
+    dispatch(signUp(data));
+    navigate("/");
   };
   return (
-    <StyledPage>
-      <Flex justify="center" align="center" direction="column">
-        <StyledRegisterForm>
-          <StyledTitle2>РЕГИСТРАЦИЯ</StyledTitle2>
-          <FormComponent
-            onSubmit={handleSubmit}
-            validateScheme={validateScheme}
-          >
-            <TextFiled
-              name="name"
-              placeholder="Введите имя"
-              type="text"
-              autoFocus
-            />
-            <TextFiled placeholder="Введите email" name="email" type="email" />
-            <TextFiled
-              placeholder="Введите пароль"
-              name="password"
-              type="password"
-            />
-            <StyledButtonWithForm>
-              <span>
-                <i className="fa-solid fa-user-plus"></i>
-              </span>
-              зарегистрироваться
-            </StyledButtonWithForm>
-          </FormComponent>
-          <StyledLink to="/">ВХОД</StyledLink>
-        </StyledRegisterForm>
-      </Flex>
-    </StyledPage>
+    <FormComponent onSubmit={handleSubmit} validateScheme={validateScheme}>
+      <TextFiled name="name" placeholder="Введите имя" type="text" autoFocus />
+      <TextFiled placeholder="Введите email" name="email" type="email" />
+      <TextFiled placeholder="Введите пароль" name="password" type="password" />
+      <StyledButtonWithForm>
+        <span>
+          <i className="fa-solid fa-user-plus"></i>
+        </span>
+        зарегистрироваться
+      </StyledButtonWithForm>
+    </FormComponent>
   );
 }

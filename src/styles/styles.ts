@@ -31,8 +31,11 @@ export const StyledTextField = styled.div<PropsStyled>`
     line-height: 2.4;
     font-weight: 300;
 
-    &:focus::placeholder {
+    /* &:focus::placeholder {
       font-size: 0;
+    } */
+    &:focus {
+      outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
     }
   }
 `;
@@ -84,6 +87,18 @@ export const StyledButton = styled.button`
     pointer-events: none;
   }
   ${buttonStyles};
+  &:focus-visible {
+    outline: ${({ theme }) => `1px solid ${theme.colors.defaultDark}`};
+  }
+`;
+
+// Грабли...
+export const StyledPasswordButton = styled.button`
+  position: absolute;
+  top: 17px;
+  right: 15px;
+  font-size: 22px;
+  color: ${({ theme }) => theme.colors.defaultDark};
 `;
 
 export const StyledNavLinkWithIcon = styled(NavLink)`
