@@ -9,12 +9,16 @@ declare module "styled-components" {
       accentDark: string;
       accentLigth: string;
       textDark: string;
+      bgDanger: string;
+      bgSuccess: string;
       defaultLigth: string;
       defaultDark: string;
       bg: string;
       font: string;
     };
     heigthUserPanel: string;
+    heigthHeaderPage: string;
+    widthSidebar: string;
 
     media: {
       extraLarge: string;

@@ -21,6 +21,7 @@ export interface IUserServer {
   name: string;
   email: string;
   image: string;
+  maxCountRepeat: number;
 }
 
 export interface IUserLogIn {
@@ -34,4 +35,17 @@ export interface ITestServer {
   name: string;
   id: string;
   userId: string | null;
+}
+export interface ITask {
+  question: string;
+  answer: string;
+}
+
+export interface ITaskServer extends ITask {
+  id: string;
+  testId: string | null;
+  count: number;
+  status: string;
+  createdBy: number;
+  maxRepeat: number;
 }

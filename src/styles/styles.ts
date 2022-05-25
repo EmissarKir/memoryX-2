@@ -6,12 +6,32 @@ type PropsStyled = {
   color?: string;
   margin?: string;
   padding?: string;
+  lh?: string;
 };
 
 export const StyledPage = styled.div`
   width: 100%;
-  height: calc(100% - ${({ theme }) => theme.heigthUserPanel});
+  height: calc(
+    100% -
+      (
+        ${({ theme }) => theme.heigthUserPanel} +
+          ${({ theme }) => theme.heigthHeaderPage}
+      )
+  );
 `;
+
+export const StyledContainer = styled.div`
+  padding: 0 30px;
+  & > *:not(:last-child) {
+    margin-bottom: 30px;
+  }
+
+  @media ${({ theme }) => theme.media.large} {
+    width: 100%;
+    padding: 0px 20px;
+  }
+`;
+
 // margin/padding значения по умолчанию - для корректного вывода error message
 export const StyledTextField = styled.div<PropsStyled>`
   position: relative;
@@ -30,6 +50,60 @@ export const StyledTextField = styled.div<PropsStyled>`
     font-size: 1.15rem;
     line-height: 2.4;
     font-weight: 300;
+
+    /* &:focus::placeholder {
+      font-size: 0;
+    } */
+    &:focus {
+      outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
+    }
+  }
+`;
+
+export const StyledSelectField = styled.div<PropsStyled>`
+  position: relative;
+  width: 100%;
+  margin: ${({ margin = "0 0 10px 0" }) => margin};
+  padding: ${({ padding = "0 0 20px 0" }) => padding};
+  & select {
+    width: 100%;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    background: ${(props) => props.colorBg || props.theme.colors.defaultLigth};
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: ${(props) => props.color || props.theme.colors.textDark};
+    font-size: 1.15rem;
+    line-height: ${(props) => props.lh || "2.4"};
+    font-weight: 300;
+
+    /* &:focus::placeholder {
+    font-size: 0;
+  } */
+    &:focus {
+      outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
+    }
+  }
+`;
+export const StyledTextareaField = styled.div<PropsStyled>`
+  position: relative;
+  width: 100%;
+  margin: ${({ margin = "0 0 10px 0" }) => margin};
+  padding: ${({ padding = "0 0 20px 0" }) => padding};
+  & textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    background: ${(props) => props.colorBg || props.theme.colors.defaultLigth};
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: ${(props) => props.color || props.theme.colors.textDark};
+    font-size: 1.15rem;
+    line-height: ${(props) => props.lh || "2.4"};
+    font-weight: 300;
+    resize: none;
 
     /* &:focus::placeholder {
       font-size: 0;
@@ -102,6 +176,10 @@ export const StyledPasswordButton = styled.button`
 `;
 
 export const StyledNavLinkWithIcon = styled(NavLink)`
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
   ${buttonStyles}
 `;
 export const StyledText = styled.p<{ align?: string }>`
@@ -119,4 +197,7 @@ export const InvalidText = styled.div`
   left: 0;
   font-size: 0.875em;
   color: #dc3545;
+`;
+export const StyledHeaderPage = styled.div`
+  margin: 0 30px;
 `;

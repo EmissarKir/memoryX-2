@@ -6,6 +6,8 @@ export const baseTheme: DefaultTheme = {
     accentDark: "#C7A17A",
     accentLigth: "#F9F5E8",
     textDark: "#151D28",
+    bgDanger: "#FF7985",
+    bgSuccess: "#5FDBA7",
     primaryLigth: "#fff",
     defaultLigth: "#EEF0F3",
     defaultDark: "grey",
@@ -14,6 +16,8 @@ export const baseTheme: DefaultTheme = {
     font: "#151D28",
   },
   heigthUserPanel: "100px",
+  heigthHeaderPage: "80px",
+  widthSidebar: "300px",
 
   media: {
     extraLarge: "(max-width: 1140px)",

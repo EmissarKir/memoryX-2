@@ -15,5 +15,14 @@ const usersService = {
     );
     return data;
   },
+  fetchUserById: async (userId: string) => {
+    const { data } = await httpService.get(usersEndPoint, {
+      params: {
+        orderBy: '"userId"',
+        equalTo: `"${userId}"`,
+      },
+    });
+    return data;
+  },
 };
 export default usersService;

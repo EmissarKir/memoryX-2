@@ -1,9 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
-import { AppDispatch } from "../..";
+import { useAppDispatch } from "../../hooks/redux";
 import { signUp } from "../../store/users";
 import { StyledButton } from "../../styles/styles";
 import { IUser } from "../../types/types";
@@ -17,7 +16,7 @@ const StyledButtonWithForm = styled(StyledButton)`
 `;
 
 export default function RegisterForm() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const validateScheme = yup.object().shape({

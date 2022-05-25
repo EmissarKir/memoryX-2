@@ -1,9 +1,10 @@
-import { AppDispatch, RootState } from "../index";
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import testsService from "../services/tests.service";
 import { ITest, ITestServer } from "../types/types";
 import { getUserId } from "../services/localStorage.service";
 import { nanoid } from "nanoid";
+import history from "../utils/history";
+import { AppDispatch, RootState } from "./createStore";
 
 export type SliceState = {
   entities: ITestServer[];
@@ -56,20 +57,30 @@ export const createTest =
       };
       const { content } = await testsService.create(newData);
       dispatch(testCreateSuccess(content));
+      history.push("/");
     } catch (error) {}
   };
 
-export const loadTests = () => async (dispatch: AppDispatch) => {
-  dispatch(testsRequested());
-  try {
-    const { content } = await testsService.fetch();
-    dispatch(testsRecieved(content));
-  } catch (error) {
-    dispatch(testsRequestFailed(error));
-  }
-};
+export const loadTests =
+  () => async (dispatch: AppDispatch, getState: () => RootState) => {
+    //проверка регистрации пользователя
+    const userId = getState().users.auth?.userId;
+    // если зареган, то получаем тесты по его id, если нет, то default данные
+    const path = userId
+      ? testsService.fetch(userId)
+      : testsService.fetchDefault();
+    dispatch(testsRequested());
+    try {
+      const { content } = await path;
+      dispatch(testsRecieved(content));
+    } catch (error) {
+      dispatch(testsRequestFailed(error));
+    }
+  };
 
 // Селекторы
 export const getTests = () => (state: RootState) => state.tests.entities;
+export const getTestsLoadingStatus = () => (state: RootState) =>
+  state.tests.isLoading;
 
 export default testsReducer;

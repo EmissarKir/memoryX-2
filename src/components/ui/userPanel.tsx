@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getCurrentUserData } from "../../store/users";
 import { StyledTextMuted, StyledTitle1 } from "../../styles/styles";
+import unAuthorizedUserImage from "../../assets/img/unauthorized-ser.jpg";
+import { getTimesOfDay } from "../../utils";
 
 type Props = {};
 interface StyledUserPanelProps {}
@@ -10,6 +14,7 @@ const StyledUserPanel = styled.div<StyledUserPanelProps>`
   height: ${({ theme }) => theme.heigthUserPanel};
   /* background: ${({ theme }) => theme.colors.primary}; */
   border-bottom: 1px solid ${({ theme }) => theme.colors.defaultLigth};
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,16 +59,17 @@ const StyledUserPanel = styled.div<StyledUserPanelProps>`
 `;
 
 export default function UserPanel({}: Props) {
-  const userName = "Mike";
-  const timesOfDay = "Доброе Утро";
-  const userImage = `https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60`;
-  const userImage2 = `https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60`;
+  const userData = useSelector(getCurrentUserData());
+  const currentTimesOfDay = getTimesOfDay(Date.now());
+  const userName = userData ? userData.name : "Незнакомец";
+  const userImage = userData ? userData.image : unAuthorizedUserImage;
+
   return (
     <StyledUserPanel>
       <div>
         <StyledTitle1>Добро пожаловать</StyledTitle1>
         <StyledTextMuted>
-          Привет {userName}, {timesOfDay}!
+          Привет {userName}, {currentTimesOfDay}!
         </StyledTextMuted>
       </div>
       <div className="content">
@@ -71,7 +77,7 @@ export default function UserPanel({}: Props) {
           <i className="icons fa-solid fa-gear"></i>
         </button>
         <span>
-          <img src={userImage2} alt="user-image" />
+          <img src={userImage} alt="user-image" />
         </span>
       </div>
     </StyledUserPanel>

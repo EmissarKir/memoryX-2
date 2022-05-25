@@ -5,9 +5,8 @@ import { StyledButton } from "../../styles/styles";
 import TextFiled from "../common/forms/textFiled";
 import FormComponent from "../common/forms/form";
 import { IUserLogIn } from "../../types/types";
-import { useDispatch } from "react-redux";
 import { login } from "../../store/users";
-import { AppDispatch } from "../..";
+import { useAppDispatch } from "../../hooks/redux";
 
 const StyledButtonWithForm = styled(StyledButton)`
   width: 100%;
@@ -16,7 +15,7 @@ const StyledButtonWithForm = styled(StyledButton)`
 `;
 
 export default function LoginForm() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const validateScheme = yup.object().shape({
     email: yup

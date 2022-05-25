@@ -46,7 +46,7 @@ http.interceptors.request.use(
 );
 
 function transormData(data: any) {
-  return data && !data.userId && !data.name
+  return data && !data.userId && !data.name && !data.question
     ? Object.keys(data).map((key) => ({
         ...data[key],
       }))
@@ -77,5 +77,7 @@ const httpService = {
   get: http.get,
   post: http.post,
   put: http.put,
+  patch: http.patch,
+  delete: http.delete,
 };
 export default httpService;

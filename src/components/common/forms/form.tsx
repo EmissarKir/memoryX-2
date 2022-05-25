@@ -30,6 +30,7 @@ const FormComponent: FC<Props> = ({
   defaultData,
 }) => {
   const [data, setData] = useState<{ [key: string]: any }>(defaultData || {});
+
   const [errors, setErrors] = useState<{ [key: string]: any }>({});
   const handleChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
