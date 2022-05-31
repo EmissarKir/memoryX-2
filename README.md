@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Приложение для обучения по карточкам 2.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Stack
+TypeScript, Redux-Toolkit, axios,
 
 ## Available Scripts
 

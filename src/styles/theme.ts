@@ -15,9 +15,48 @@ export const baseTheme: DefaultTheme = {
     bg: "#E5E4E8",
     font: "#151D28",
   },
+  buttons: {
+    buttonHeigth: "40px",
+    buttonSpace: "20px",
+    buttonFontSize: "16px",
+  },
   heigthUserPanel: "100px",
   heigthHeaderPage: "80px",
   widthSidebar: "300px",
+
+  controlRadius: "5px",
+
+  controlTypoPrimary: "#fff",
+  controlTypoBgPrimary: "#C7A17A",
+  controlTypoAccent: "#fff",
+  controlTypoBgAccent: "#415167",
+  controlTypoClear: "gray",
+  controlTypoGhost: "#415167",
+  controlTypoBgGhost: "#EEF0F3",
+  controlTypoSecondary: "#C7A17A",
+
+  controlHeightXS: "24px",
+  controlTextSizeXS: "12px",
+  controlSpaceXS: "12px",
+
+  controlHeightS: "32px",
+  controlTextSizeS: "14px",
+  controlSpaceS: "16px",
+
+  controlHeightM: "40px",
+  controlTextSizeM: "16px",
+  controlSpaceM: "20px",
+
+  controlHeightL: "48px",
+  controlTextSizeL: "18px",
+  controlSpaceL: "24px",
+
+  controlHeightXL: "60px",
+  controlTextSizeXL: "24px",
+  controlSpaceXL: "30px",
+
+  iconIndent: "10px",
+  fontWeightTextRegular: 400,
 
   media: {
     extraLarge: "(max-width: 1140px)",

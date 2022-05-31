@@ -17,8 +17,13 @@ export default function TestsPage({}: Props) {
 
   useEffect(() => {
     dispatch(loadTests());
-    dispatch(loadCurrentUser());
   }, [isAuth]);
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(loadCurrentUser());
+    }
+  }, []);
   if (isTestLoading) return <Loader />;
 
   return tests.length === 0 ? (

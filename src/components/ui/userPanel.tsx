@@ -5,8 +5,11 @@ import { getCurrentUserData } from "../../store/users";
 import { StyledTextMuted, StyledTitle1 } from "../../styles/styles";
 import unAuthorizedUserImage from "../../assets/img/unauthorized-ser.jpg";
 import { getTimesOfDay } from "../../utils";
+import Flex from "../styles/flex";
 
-type Props = {};
+import { FaBars, FaRegSun } from "react-icons/fa";
+import Button from "../common/button";
+
 interface StyledUserPanelProps {}
 
 const StyledUserPanel = styled.div<StyledUserPanelProps>`
@@ -23,42 +26,48 @@ const StyledUserPanel = styled.div<StyledUserPanelProps>`
     display: flex;
     align-items: center;
     margin-right: 30px;
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-      height: 60px;
-      background: ${({ theme }) => theme.colors.defaultLigth};
-      border-radius: 50%;
-      overflow: hidden;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-      height: 60px;
-      background: ${({ theme }) => theme.colors.defaultLigth};
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    & .icons {
-      color: ${({ theme }) => theme.colors.primary};
-      font-size: 1.15em;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  }
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: ${({ theme }) => theme.colors.defaultLigth};
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: ${({ theme }) => theme.colors.defaultLigth};
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  & .icons {
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1.15em;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
+const StyledButtonBar = styled.button`
+  position: relative;
+  z-index: 1000;
+`;
 
-export default function UserPanel({}: Props) {
+type Props = {
+  onToggleSidebar: () => void;
+};
+export default function UserPanel({ onToggleSidebar }: Props) {
   const userData = useSelector(getCurrentUserData());
   const currentTimesOfDay = getTimesOfDay(Date.now());
   const userName = userData ? userData.name : "Незнакомец";
@@ -66,16 +75,31 @@ export default function UserPanel({}: Props) {
 
   return (
     <StyledUserPanel>
-      <div>
-        <StyledTitle1>Добро пожаловать</StyledTitle1>
-        <StyledTextMuted>
-          Привет {userName}, {currentTimesOfDay}!
-        </StyledTextMuted>
-      </div>
+      <Flex>
+        <Button
+          size="xl"
+          form="round"
+          view="ghost"
+          iconLeft={FaBars}
+          onlyIcon
+          onClick={onToggleSidebar}
+        />
+        <div>
+          <StyledTitle1>Добро пожаловать</StyledTitle1>
+          <StyledTextMuted>
+            Привет {userName}, {currentTimesOfDay}!
+          </StyledTextMuted>
+        </div>
+      </Flex>
+
       <div className="content">
-        <button>
-          <i className="icons fa-solid fa-gear"></i>
-        </button>
+        <Button
+          size="xl"
+          form="round"
+          view="ghost"
+          iconLeft={FaRegSun}
+          onlyIcon
+        />
         <span>
           <img src={userImage} alt="user-image" />
         </span>

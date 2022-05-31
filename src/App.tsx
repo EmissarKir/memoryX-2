@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { baseTheme } from "./styles/theme";
 import { Routes, Route } from "react-router-dom";
@@ -19,20 +19,28 @@ import ExercisePage from "./components/pages/exercisePage";
 import EditTaskPage from "./components/pages/editTaskPage";
 import TaskPage from "./components/pages/taskPage";
 import TestPage from "./layouts/testPage";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 
 function App() {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const isMobile = useMediaQuery("(max-width: 992px)");
+
+  const toggleSidebar = () => {
+    setIsOpen((prev) => !prev);
+  };
   return (
     <CustomRouter history={customHistory}>
       <ThemeProvider theme={baseTheme}>
-        <Sidebar />
-        <MainContainer>
-          <UserPanel />
+        <Sidebar
+          isOpen={isOpen}
+          isMobile={isMobile}
+          onToggleSidebar={toggleSidebar}
+        >
+          <UserPanel onToggleSidebar={toggleSidebar} />
           <Routes>
             <Route path="/tasks/create" element={<CreateTaskPage />} />
             <Route path="/exercise" element={<ExercisePage />} />
             <Route path="/tests/create" element={<CreateTestPage />} />
-            {/* <Route path="tasks/:taskId" element={<TaskPage />} /> */}
-
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<LoginPage />} />
             <Route path="/logout" element={<LogOut />} />
@@ -41,7 +49,7 @@ function App() {
             <Route path="/tasks/:taskId" element={<TaskPage />} />
             <Route path="/" element={<TestsPage />} />
           </Routes>
-        </MainContainer>
+        </Sidebar>
         <GlobalStyle />
       </ThemeProvider>
     </CustomRouter>

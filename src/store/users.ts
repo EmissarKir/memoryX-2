@@ -136,16 +136,6 @@ export const logOut = () => (dispatch: AppDispatch) => {
   history.push("/");
 };
 
-// export const loadUsersList = () => async (dispatch: AppDispatch) => {
-//   dispatch(usersRequested());
-//   try {
-//     const { data } = await usersService.fetch();
-
-//     dispatch(usersRecieved(data));
-//   } catch (error) {
-//     dispatch(usersRequestFailed(error));
-//   }
-// };
 export const loadCurrentUser =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const currentUserId = getState().users.auth.userId;
