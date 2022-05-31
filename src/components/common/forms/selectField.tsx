@@ -15,7 +15,7 @@ interface ISelectFieldProps {
   autoFocus?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
-const SelectField = ({
+export const SelectField = ({
   defaultOption,
   options,
   label,
@@ -59,5 +59,3 @@ const SelectField = ({
     </div>
   );
 };
-
-export default SelectField;

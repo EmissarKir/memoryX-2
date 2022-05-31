@@ -10,21 +10,22 @@ export const buttonPropView = [
 ] as const;
 export const buttonPropForm = ["default", "brick", "round"] as const;
 export const buttonPropSize = ["m", "xs", "s", "l", "xl"] as const;
+export const buttonPropWidth = ["default", "full"] as const;
 export type ButtonPropView = typeof buttonPropView[number];
 export type ButtonPropForm = typeof buttonPropForm[number];
 export type ButtonPropSize = typeof buttonPropSize[number];
+export type ButtonPropWidth = typeof buttonPropWidth[number];
 
 type ButtonProps<T extends ElementType> = {
   renderAs?: T;
-  color?: string;
   size?: ButtonPropSize;
-  colorBg?: string;
+  width?: ButtonPropWidth;
   label?: string;
   view?: ButtonPropView;
+  form?: ButtonPropForm;
   onlyIcon?: boolean;
   iconRight?: any;
   iconLeft?: any;
-  form?: ButtonPropForm;
 } & ComponentPropsWithoutRef<T>;
 
 function getIconSize(mapIconSize: any, size: ButtonPropSize): void {
@@ -37,11 +38,10 @@ const Button = <T extends ElementType = "button">({
   view = "primary",
   form = "default",
   size = "m",
+  width = "default",
   onlyIcon,
   iconLeft,
   iconRight,
-  color,
-  colorBg,
 
   ...rest
 }: ButtonProps<T> &
@@ -63,14 +63,13 @@ const Button = <T extends ElementType = "button">({
   return (
     <Styled.BTN
       as={renderAs as ElementType}
-      view={view}
-      form={form}
+      $view={view}
+      $form={form}
+      $width={width}
       onlyIcon={IconOnly}
       iconLeft={iconLeft}
       iconRight={iconRight}
-      size={size}
-      color={color}
-      colorBg={colorBg}
+      $size={size}
       {...rest}
     >
       {IconOnly && <IconOnly size={iconSize} />}

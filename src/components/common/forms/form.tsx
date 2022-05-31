@@ -23,7 +23,7 @@ type Props = {
   defaultData?: any;
 };
 
-const FormComponent: FC<Props> = ({
+export const FormComponent: FC<Props> = ({
   children,
   validateScheme,
   onSubmit,
@@ -70,20 +70,20 @@ const FormComponent: FC<Props> = ({
       const item = child as ReactElement<PropsWithChildren<PropsWithChild>>;
       let config = {};
       if (typeof item.type === "function") {
-        config = {
-          ...item.props,
-          onChange: handleChange,
-          value: data[item.props.name] || "",
-          error: errors[item.props.name],
-        };
+        if (item.type.name === "Button") {
+          config = { ...item.props, disabled: !isValidButton };
+        } else {
+          config = {
+            ...item.props,
+            onChange: handleChange,
+            value: data[item.props.name] || "",
+            error: errors[item.props.name],
+          };
+        }
       }
-      if (typeof item.type === "object") {
-        config = { ...item.props, disabled: !isValidButton };
-      }
+
       return React.cloneElement(item, config);
     }
   );
   return <form onSubmit={handleSubmit}>{clonedElements}</form>;
 };
-
-export default FormComponent;

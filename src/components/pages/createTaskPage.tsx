@@ -1,28 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import styled from "styled-components";
 import * as yup from "yup";
 
-import FormComponent from "../common/forms/form";
-
-import { StyledButton, StyledContainer } from "../../styles/styles";
-import TextAreaField from "../common/forms/textareaField";
+import { StyledContainer } from "../../styles/styles";
 import HeaderPageVar1 from "../ui/headerPageVar1";
 import { createTask } from "../../store/tasks";
 import { ITask } from "../../types/types";
 import { useAppDispatch } from "../../hooks/redux";
+import Button from "../common/button";
+import { FaAngleLeft, FaSketch } from "react-icons/fa";
+import { FormComponent, TextAreaField } from "../common/forms";
 
-const StyledButtonWithForm = styled(StyledButton)`
-  text-transform: uppercase;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-`;
-
-type Props = {};
-
-export default function CreateTaskPage({}: Props) {
+export default function CreateTaskPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const validateScheme = yup.object().shape({
@@ -45,12 +35,13 @@ export default function CreateTaskPage({}: Props) {
   return (
     <StyledContainer>
       <HeaderPageVar1 title="Создание нового вопроса">
-        <StyledButton onClick={goBack}>
-          <span>
-            <i className="fa-solid fa-angle-left"></i>
-          </span>
-          Вернуться назад
-        </StyledButton>
+        <Button
+          size="l"
+          label="Вернуться назад"
+          iconLeft={FaAngleLeft}
+          form="round"
+          onClick={goBack}
+        />
       </HeaderPageVar1>
       <FormComponent validateScheme={validateScheme} onSubmit={handleSubmit}>
         <TextAreaField
@@ -60,12 +51,7 @@ export default function CreateTaskPage({}: Props) {
         />
         <TextAreaField name="answer" placeholder="Введите ответ" rows={10} />
 
-        <StyledButtonWithForm type="submit">
-          <span>
-            <i className="fa-solid fa-arrow-right-to-bracket"></i>
-          </span>
-          создать
-        </StyledButtonWithForm>
+        <Button type="submit" label="Cоздать" size="l" iconRight={FaSketch} />
       </FormComponent>
     </StyledContainer>
   );

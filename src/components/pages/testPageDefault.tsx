@@ -12,7 +12,7 @@ import {
 } from "../../store/tasks";
 import { StyledContainer } from "../../styles/styles";
 import Button from "../common/button";
-import TextFiled from "../common/forms/textFiled";
+import { TextFiled } from "../common/forms";
 import Loader from "../common/loader";
 import Flex from "../styles/flex";
 import HeaderPageVar1 from "../ui/headerPageVar1";

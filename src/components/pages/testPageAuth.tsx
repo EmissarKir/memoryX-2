@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { FaAngleLeft, FaPlayCircle, FaPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
 import { useAppDispatch } from "../../hooks/redux";
 
 import {
@@ -13,24 +14,15 @@ import {
   setTaskFilter,
 } from "../../store/tasks";
 import { getIsLoggedIn, loadCurrentUser } from "../../store/users";
-import {
-  StyledButton,
-  StyledContainer,
-  StyledNavLinkWithIcon,
-} from "../../styles/styles";
-import TextFiled from "../common/forms/textFiled";
+import { StyledContainer } from "../../styles/styles";
+import Button from "../common/button";
+import { TextFiled } from "../common/forms";
 import Loader from "../common/loader";
 import Flex from "../styles/flex";
 import HeaderPageVar1 from "../ui/headerPageVar1";
 import QuestionsTable from "../ui/questionsTable";
 
-type Props = {};
-
-const StyledButtonActive = styled(StyledButton)`
-  background: ${({ theme }) => theme.colors.primary};
-`;
-
-const TestPageAuth = (props: Props) => {
+const TestPageAuth = () => {
   const [filter, setFilter] = useState<string>("");
   const { pathname } = useLocation();
 
@@ -81,30 +73,32 @@ const TestPageAuth = (props: Props) => {
   return (
     <StyledContainer>
       <HeaderPageVar1 title="Тест - Название теста">
-        <StyledNavLinkWithIcon to="/">
-          <span>
-            <i className="fa-solid fa-angle-left"></i>
-          </span>
-          Вернуться назад
-        </StyledNavLinkWithIcon>
-        <StyledNavLinkWithIcon to="/tasks/create">
-          <span>
-            <i className="fa-solid fa-plus"></i>
-          </span>
-          Добавить вопрос
-        </StyledNavLinkWithIcon>
-
-        <StyledButtonActive
+        <Link to="/">
+          <Button
+            size="l"
+            label="Вернуться назад"
+            iconLeft={FaAngleLeft}
+            form="round"
+          />
+        </Link>
+        <Link to="/tasks/create">
+          <Button
+            size="l"
+            label="Добавить вопрос"
+            iconLeft={FaPlus}
+            form="round"
+          />
+        </Link>
+        <Button
+          size="l"
+          label="Начать тест"
+          view="accent"
+          iconRight={FaPlayCircle}
+          form="round"
           onClick={goRedirect}
           disabled={isWorkingTasks.length <= 0}
-        >
-          <span>
-            <i className="fa-solid fa-play"></i>
-          </span>
-          Начать тест
-        </StyledButtonActive>
+        />
       </HeaderPageVar1>
-
       <TextFiled
         type="text"
         placeholder="Найти вопрос"

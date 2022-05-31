@@ -8,8 +8,6 @@ type Props = {};
 
 const TestPage = (props: Props) => {
   const isLoggedIn = useSelector(getIsLoggedIn());
-  console.log("isLoggedIn", isLoggedIn);
-
   return <>{isLoggedIn ? <TestPageAuth /> : <TestPageDefault />}</>;
 };
 

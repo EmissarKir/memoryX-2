@@ -17,7 +17,7 @@ interface ITextFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function TextFiled({
+export function TextFiled({
   label,
   placeholder,
   type,

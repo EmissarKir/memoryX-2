@@ -30,7 +30,7 @@ export const baseTheme: DefaultTheme = {
   controlTypoBgPrimary: "#C7A17A",
   controlTypoAccent: "#fff",
   controlTypoBgAccent: "#415167",
-  controlTypoClear: "gray",
+  controlTypoClear: "#C7A17A",
   controlTypoGhost: "#415167",
   controlTypoBgGhost: "#EEF0F3",
   controlTypoSecondary: "#C7A17A",

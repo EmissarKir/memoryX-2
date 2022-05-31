@@ -1,26 +1,17 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import styled from "styled-components";
 import * as yup from "yup";
 
-import FormComponent from "../common/forms/form";
-
-import { StyledButton, StyledContainer } from "../../styles/styles";
-import TextAreaField from "../common/forms/textareaField";
+import { StyledContainer } from "../../styles/styles";
 import HeaderPageVar1 from "../ui/headerPageVar1";
-import { ITask, ITaskServer } from "../../types/types";
-import { useSelector } from "react-redux";
-import { getTaskById, updateTask } from "../../store/tasks";
-import SelectField from "../common/forms/selectField";
-import { useAppDispatch } from "../../hooks/redux";
+import { ITaskServer } from "../../types/types";
+import { updateTask } from "../../store/tasks";
 
-const StyledButtonWithForm = styled(StyledButton)`
-  text-transform: uppercase;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-`;
+import { useAppDispatch } from "../../hooks/redux";
+import Button from "../common/button";
+import { FaAngleLeft, FaSketch } from "react-icons/fa";
+import { FormComponent, SelectField, TextAreaField } from "../common/forms";
 
 type Props = {
   task?: ITaskServer;
@@ -54,12 +45,13 @@ export default function EditTaskPage({ task }: Props) {
   return (
     <StyledContainer>
       <HeaderPageVar1 title="Редактирование вопроса">
-        <StyledButton onClick={goBack}>
-          <span>
-            <i className="fa-solid fa-angle-left"></i>
-          </span>
-          Вернуться назад
-        </StyledButton>
+        <Button
+          size="l"
+          label="Вернуться назад"
+          iconLeft={FaAngleLeft}
+          form="round"
+          onClick={goBack}
+        />
       </HeaderPageVar1>
       <FormComponent
         validateScheme={validateScheme}
@@ -83,12 +75,7 @@ export default function EditTaskPage({ task }: Props) {
           defaultOption="Choose..."
           options={optionsTaskStatus}
         />
-        <StyledButtonWithForm type="submit">
-          <span>
-            <i className="fa-solid fa-arrow-right-to-bracket"></i>
-          </span>
-          сохранить
-        </StyledButtonWithForm>
+        <Button type="submit" label="Сохранить" size="l" iconRight={FaSketch} />
       </FormComponent>
     </StyledContainer>
   );

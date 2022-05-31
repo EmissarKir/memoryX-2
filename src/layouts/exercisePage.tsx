@@ -1,27 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  changeRepeatCount,
-  getIsWorkingTasks,
-  getTasks,
-} from "../../store/tasks";
-import {
-  StyledButton,
-  StyledHeaderPage,
-  StyledPage,
-  StyledText,
-} from "../../styles/styles";
+import { changeRepeatCount, getIsWorkingTasks } from "../store/tasks";
+import { StyledHeaderPage, StyledPage, StyledText } from "../styles/styles";
 
-import Flex from "../styles/flex";
-import HeaderPageVar1 from "../ui/headerPageVar1";
-import ExerciseCard from "../ui/exerciseCard";
+import Flex from "../components/styles/flex";
+import HeaderPageVar1 from "../components/ui/headerPageVar1";
+import ExerciseCard from "../components/ui/exerciseCard";
 import { useNavigate } from "react-router-dom";
-import { ITaskServer } from "../../types/types";
-import { getNoun } from "../../utils";
-import { getIsLoggedIn } from "../../store/users";
-import { useAppDispatch } from "../../hooks/redux";
-type Props = {};
+import { ITaskServer } from "../types/types";
+import { getNoun } from "../utils";
+import { getIsLoggedIn } from "../store/users";
+import { useAppDispatch } from "../hooks/redux";
+import Button from "../components/common/button";
+import { FaAngleLeft, FaPlus } from "react-icons/fa";
 
 const StyledContainer = styled.div`
   margin: 20px 0px;
@@ -36,7 +28,8 @@ const StyledContainer = styled.div`
     padding: 0px 20px;
   }
 `;
-const ExercisePage = (props: Props) => {
+
+const ExercisePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const tasks = useSelector(getIsWorkingTasks());
@@ -101,36 +94,35 @@ const ExercisePage = (props: Props) => {
     <>
       <StyledHeaderPage>
         <HeaderPageVar1 title="Упражнение">
-          <StyledButton onClick={goBack}>
-            <span>
-              <i className="fa-solid fa-angle-left"></i>
-            </span>
-            Выйти из теста
-          </StyledButton>
-          <StyledButton
+          <Button
+            size="l"
+            label="Выйти из теста"
+            iconLeft={FaAngleLeft}
+            form="round"
+            onClick={goBack}
+          />
+          <Button
+            size="l"
+            label="Вернуться"
+            form="round"
             onClick={handleBackQuestion}
             disabled={index === 0 || isFinish}
-          >
-            <span>
-              <i className="fa-solid fa-right-long-to-line"></i>
-            </span>
-            Вернуться
-          </StyledButton>
-          <StyledButton onClick={handleSkipQuestion} disabled={isFinish}>
-            <span>
-              <i className="fa-solid fa-right-long-to-line"></i>
-            </span>
-            Пропустить
-          </StyledButton>
-          <StyledButton
+          />
+          <Button
+            size="l"
+            label="Пропустить"
+            form="round"
+            onClick={handleSkipQuestion}
+            disabled={isFinish}
+          />
+          <Button
+            size="l"
+            label="Знаю ответ"
+            form="round"
+            iconRight={FaPlus}
             onClick={() => handleNextQuestion(indexTask)}
             disabled={isFinish}
-          >
-            <span>
-              <i className="fa-solid fa-plus"></i>
-            </span>
-            Знаю ответ
-          </StyledButton>
+          />
         </HeaderPageVar1>
       </StyledHeaderPage>
       <StyledPage>

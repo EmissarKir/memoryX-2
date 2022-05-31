@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getTaskById } from "../../store/tasks";
-import EditTaskPage from "./editTaskPage";
-import ViewTaskPage from "./viewTaskPage";
+import { getTaskById } from "../store/tasks";
+import EditTaskPage from "../components/pages/editTaskPage";
+import ViewTaskPage from "../components/pages/viewTaskPage";
 
 const TaskPage = () => {
   const { taskId, edit } = useParams();

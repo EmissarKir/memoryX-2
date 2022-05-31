@@ -1,19 +1,12 @@
 import React from "react";
+import { FaUserPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import * as yup from "yup";
 import { useAppDispatch } from "../../hooks/redux";
 import { signUp } from "../../store/users";
-import { StyledButton } from "../../styles/styles";
 import { IUser } from "../../types/types";
-import FormComponent from "../common/forms/form";
-import TextFiled from "../common/forms/textFiled";
-
-const StyledButtonWithForm = styled(StyledButton)`
-  width: 100%;
-  line-height: 2.4;
-  text-transform: uppercase;
-`;
+import Button from "../common/button";
+import { FormComponent, TextFiled } from "../common/forms";
 
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
@@ -46,12 +39,13 @@ export default function RegisterForm() {
       <TextFiled name="name" placeholder="Введите имя" type="text" autoFocus />
       <TextFiled placeholder="Введите email" name="email" type="email" />
       <TextFiled placeholder="Введите пароль" name="password" type="password" />
-      <StyledButtonWithForm>
-        <span>
-          <i className="fa-solid fa-user-plus"></i>
-        </span>
-        зарегистрироваться
-      </StyledButtonWithForm>
+      <Button
+        label="Зарегистрироваться"
+        size="xl"
+        iconLeft={FaUserPlus}
+        width="full"
+        type="submit"
+      />
     </FormComponent>
   );
 }

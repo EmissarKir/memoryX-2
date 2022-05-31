@@ -1,18 +1,11 @@
 import React from "react";
 import * as yup from "yup";
-import styled from "styled-components";
-import { StyledButton } from "../../styles/styles";
-import TextFiled from "../common/forms/textFiled";
-import FormComponent from "../common/forms/form";
 import { IUserLogIn } from "../../types/types";
 import { login } from "../../store/users";
 import { useAppDispatch } from "../../hooks/redux";
-
-const StyledButtonWithForm = styled(StyledButton)`
-  width: 100%;
-  line-height: 2.4;
-  text-transform: uppercase;
-`;
+import Button from "../common/button";
+import { FaSignInAlt } from "react-icons/fa";
+import { FormComponent, TextFiled } from "../common/forms";
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
@@ -36,12 +29,13 @@ export default function LoginForm() {
         autoFocus
       />
       <TextFiled placeholder="Введите пароль" name="password" type="password" />
-      <StyledButtonWithForm type="submit">
-        <span>
-          <i className="fa-solid fa-arrow-right-to-bracket"></i>
-        </span>
-        ВОЙТИ
-      </StyledButtonWithForm>
+      <Button
+        type="submit"
+        label="Войти"
+        size="xl"
+        iconLeft={FaSignInAlt}
+        width="full"
+      />
     </FormComponent>
   );
 }

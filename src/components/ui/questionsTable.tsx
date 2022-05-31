@@ -1,31 +1,10 @@
 import React from "react";
+import { FaRegEdit, FaRegTimesCircle } from "react-icons/fa";
 import styled from "styled-components";
 import { ITaskServer } from "../../types/types";
 import { limitStr } from "../../utils/limitStr";
 import { timeConverter } from "../../utils/timeConverter";
-
-const StyledRounIcon = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  background: ${({ theme }) => theme.colors.defaultLigth};
-  border-radius: 50%;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.5s ease 0s;
-  span {
-    font-size: 1.15rem;
-    color: ${({ theme }) => theme.colors.primary};
-  }
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary};
-    span {
-      color: ${({ theme }) => theme.colors.primaryLigth};
-    }
-  }
-`;
+import Button from "../common/button";
 
 const StyledQuestionsTable = styled.div`
   margin-top: 30px;
@@ -148,22 +127,32 @@ export default function QuestionsTable({
                   </td>
                   <td>
                     {onEditTask && (
-                      <StyledRounIcon onClick={(e) => onEditTask?.(item.id, e)}>
-                        <span>
-                          <i className="fa-solid fa-pen-to-square"></i>
-                        </span>
-                      </StyledRounIcon>
+                      <>
+                        <Button
+                          form="round"
+                          view="ghost"
+                          iconLeft={FaRegEdit}
+                          onlyIcon
+                          size="xl"
+                          onClick={(e: React.MouseEvent) =>
+                            onEditTask?.(item.id, e)
+                          }
+                        />
+                      </>
                     )}
                   </td>
                   <td>
                     {onRemoveTask && (
-                      <StyledRounIcon
-                        onClick={(e) => onRemoveTask?.(item.id, e)}
-                      >
-                        <span>
-                          <i className="fa-solid fa-calendar-xmark"></i>
-                        </span>
-                      </StyledRounIcon>
+                      <Button
+                        form="round"
+                        view="ghost"
+                        iconLeft={FaRegTimesCircle}
+                        onlyIcon
+                        size="xl"
+                        onClick={(e: React.MouseEvent) =>
+                          onRemoveTask?.(item.id, e)
+                        }
+                      />
                     )}
                   </td>
                 </tr>

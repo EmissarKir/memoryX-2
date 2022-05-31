@@ -1,15 +1,19 @@
 import styled, { css } from "styled-components";
-import { ButtonPropForm, ButtonPropSize, ButtonPropView } from "./button";
+import {
+  ButtonPropForm,
+  ButtonPropSize,
+  ButtonPropView,
+  ButtonPropWidth,
+} from "./button";
 
 interface IStyledButtonProps {
-  view?: ButtonPropView;
-  form?: ButtonPropForm;
-  size?: ButtonPropSize;
+  $view?: ButtonPropView;
+  $form?: ButtonPropForm;
+  $size?: ButtonPropSize;
+  $width?: ButtonPropWidth;
   onlyIcon?: boolean;
   iconRight?: boolean;
   iconLeft?: boolean;
-  color?: string;
-  colorBg?: string;
 }
 
 const viewPrimary = css`
@@ -102,6 +106,7 @@ const sizeXL = css`
 export const BTN = styled.button<IStyledButtonProps>`
   position: relative;
   overflow: hidden;
+  display: inline-block;
   max-width: 100%;
   font-size: ${({ theme }) => theme.buttons.buttonFontSize};
   line-height: ${({ theme }) => theme.buttons.buttonHeigth};
@@ -118,8 +123,13 @@ export const BTN = styled.button<IStyledButtonProps>`
     box-shadow 0.15s ease, color 0.15s ease, fill 0.15s ease;
   cursor: pointer;
   flex-shrink: 0;
-  ${({ view }) => {
-    switch (view) {
+  -webkit-appearance: none;
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  ${({ $view }) => {
+    switch ($view) {
       case "primary":
         return viewPrimary;
       case "clear":
@@ -134,8 +144,8 @@ export const BTN = styled.button<IStyledButtonProps>`
         return null;
     }
   }};
-  ${({ form }) => {
-    switch (form) {
+  ${({ $form }) => {
+    switch ($form) {
       case "brick":
         return formBrick;
       case "round":
@@ -153,8 +163,8 @@ export const BTN = styled.button<IStyledButtonProps>`
       : iconLeft
       ? positionIconLeft
       : positionDefault};
-  ${({ size }) => {
-    switch (size) {
+  ${({ $size }) => {
+    switch ($size) {
       case "xs":
         return sizeXS;
       case "s":
@@ -165,6 +175,19 @@ export const BTN = styled.button<IStyledButtonProps>`
         return sizeL;
       case "xl":
         return sizeXL;
+      default:
+        return null;
+    }
+  }};
+  ${({ $width }) => {
+    switch ($width) {
+      case "full":
+        return css`
+          width: 100%;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        `;
       default:
         return null;
     }

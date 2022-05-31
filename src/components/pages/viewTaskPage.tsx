@@ -1,15 +1,10 @@
 import React from "react";
+import { FaAngleLeft } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
-import {
-  StyledButton,
-  StyledContainer,
-  StyledText,
-  StyledTextMuted,
-  StyledTitle2,
-} from "../../styles/styles";
+import { StyledContainer, StyledTitle2 } from "../../styles/styles";
 import { ITaskServer } from "../../types/types";
-import Flex from "../styles/flex";
+import Button from "../common/button";
 import HeaderPageVar1 from "../ui/headerPageVar1";
 
 type Props = {
@@ -24,12 +19,13 @@ const ViewTaskPage = ({ task }: Props) => {
   return (
     <StyledContainer>
       <HeaderPageVar1 title="Просмотр вопроса">
-        <StyledButton onClick={goBack}>
-          <span>
-            <i className="fa-solid fa-angle-left"></i>
-          </span>
-          Вернуться назад
-        </StyledButton>
+        <Button
+          size="l"
+          label="Вернуться назад"
+          iconLeft={FaAngleLeft}
+          form="round"
+          onClick={goBack}
+        />
       </HeaderPageVar1>
       <StyledTitle2>{task?.question}</StyledTitle2>
       <ReactMarkdown>{task!.answer}</ReactMarkdown>

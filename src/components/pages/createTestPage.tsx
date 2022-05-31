@@ -4,8 +4,7 @@ import { useAppDispatch } from "../../hooks/redux";
 import { createTest } from "../../store/tests";
 import { StyledTextMuted } from "../../styles/styles";
 import { ITest } from "../../types/types";
-import FormComponent from "../common/forms/form";
-import TextFiled from "../common/forms/textFiled";
+import { FormComponent, TextFiled } from "../common/forms";
 import WrapperPage from "../common/wrapperPage";
 
 export default function CreateTestPage() {

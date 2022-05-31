@@ -7,17 +7,15 @@ import GlobalStyle from "./styles/global";
 
 import Sidebar from "./components/ui/sidebar";
 import UserPanel from "./components/ui/userPanel";
-import MainContainer from "./components/styles/mainContainer";
 import CreateTestPage from "./components/pages/createTestPage";
-import TestsPage from "./components/pages/testsPage";
-import LoginPage from "./components/pages/loginPage";
-import LogOut from "./components/pages/logOut";
+import TestsPage from "./layouts/testsPage";
+import LoginPage from "./layouts/loginPage";
+import LogOut from "./layouts/logOut";
 import { CustomRouter } from "./customRouter";
 import customHistory from "./utils/history";
 import CreateTaskPage from "./components/pages/createTaskPage";
-import ExercisePage from "./components/pages/exercisePage";
-import EditTaskPage from "./components/pages/editTaskPage";
-import TaskPage from "./components/pages/taskPage";
+import ExercisePage from "./layouts/exercisePage";
+import TaskPage from "./layouts/taskPage";
 import TestPage from "./layouts/testPage";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 

@@ -13,7 +13,7 @@ interface TextAreaFieldProps {
   onChange?: (event: React.ChangeEvent) => void;
 }
 
-const TextAreaField = ({
+export const TextAreaField = ({
   label,
   name,
   value,
@@ -44,5 +44,3 @@ const TextAreaField = ({
     </StyledTextareaField>
   );
 };
-
-export default TextAreaField;

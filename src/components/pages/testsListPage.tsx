@@ -203,6 +203,7 @@ export default function TestsListPage({ tests }: Props) {
             size="xl"
             label="button XL"
             form="brick"
+            disabled
           />
           <br />
 
