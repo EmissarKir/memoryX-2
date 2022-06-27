@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import * as S from "../../../styles/styles";
+import {
+  SInvalidText,
+  SPasswordButton,
+  STextField,
+} from "../../../styles/styles";
 
 // временно необязательные поля onChange,value,error
 interface ITextFieldProps {
@@ -11,6 +15,7 @@ interface ITextFieldProps {
   colorBg?: string;
   color?: string;
   error?: string;
+  disabled?: boolean;
   margin?: string;
   padding?: string;
   autoFocus?: boolean;
@@ -27,6 +32,7 @@ export function TextFiled({
   colorBg,
   color,
   error,
+  disabled,
   margin,
   padding,
   autoFocus,
@@ -36,11 +42,12 @@ export function TextFiled({
     setShowPassword(!showPassword);
   };
   return (
-    <S.StyledTextField
+    <STextField
       colorBg={colorBg}
       color={color}
       margin={margin}
       padding={padding}
+      disabled={disabled}
     >
       <div>
         {label ? <label htmlFor={name}>{label}</label> : null}
@@ -52,16 +59,17 @@ export function TextFiled({
           placeholder={placeholder}
           onChange={onChange}
           autoFocus={autoFocus}
+          disabled={disabled}
         />
         {type === "password" && (
-          <S.StyledPasswordButton type="button" onClick={toggleShowPassword}>
+          <SPasswordButton type="button" onClick={toggleShowPassword}>
             <i
               className={"fa-solid fa-eye" + (showPassword ? "-slash" : "")}
             ></i>
-          </S.StyledPasswordButton>
+          </SPasswordButton>
         )}
-        {error && <S.InvalidText>{error}</S.InvalidText>}
+        {error && <SInvalidText>{error}</SInvalidText>}
       </div>
-    </S.StyledTextField>
+    </STextField>
   );
 }

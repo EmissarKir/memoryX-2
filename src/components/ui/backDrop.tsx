@@ -12,6 +12,7 @@ type BackDropProps = {
 
 const StyledBackDrop = styled.div<StyledBackDropProps>`
   position: fixed;
+  z-index: ${({ theme }) => theme.order.backDrop};
   top: 0;
   left: 0;
   width: 100%;

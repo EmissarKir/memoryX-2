@@ -1,5 +1,4 @@
-import { NavLink } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 type PropsStyled = {
   colorBg?: string;
@@ -7,21 +6,22 @@ type PropsStyled = {
   margin?: string;
   padding?: string;
   lh?: string;
+  disabled?: boolean;
 };
 
-export const StyledPage = styled.div`
-  width: 100%;
-  height: calc(
-    100% -
-      (
-        ${({ theme }) => theme.heigthUserPanel} +
-          ${({ theme }) => theme.heigthHeaderPage}
-      )
-  );
-`;
-
-export const StyledContainer = styled.div`
+// 1px толщина border-bottom
+export const SContainer = styled.div`
   padding: 0 30px;
+  width: 100%;
+  height: calc(100% - ${({ theme }) => theme.heigthUserPanel} - 1px);
+  @media ${({ theme }) => theme.media.small} {
+    padding: 0 5px;
+  }
+`;
+export const SContent = styled.div`
+  margin: 0 auto;
+  width: 500px;
+
   & > *:not(:last-child) {
     margin-bottom: 30px;
   }
@@ -33,11 +33,12 @@ export const StyledContainer = styled.div`
 `;
 
 // margin/padding значения по умолчанию - для корректного вывода error message
-export const StyledTextField = styled.div<PropsStyled>`
+export const STextField = styled.div<PropsStyled>`
   position: relative;
   width: 100%;
   margin: ${({ margin = "0 0 10px 0" }) => margin};
   padding: ${({ padding = "0 0 20px 0" }) => padding};
+
   & input {
     width: 100%;
     outline: none;
@@ -51,16 +52,16 @@ export const StyledTextField = styled.div<PropsStyled>`
     line-height: 2.4;
     font-weight: 300;
 
-    /* &:focus::placeholder {
-      font-size: 0;
-    } */
     &:focus {
       outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
+    }
+    &:disabled {
+      opacity: 0.5;
     }
   }
 `;
 
-export const StyledSelectField = styled.div<PropsStyled>`
+export const SSelectField = styled.div<PropsStyled>`
   position: relative;
   width: 100%;
   margin: ${({ margin = "0 0 10px 0" }) => margin};
@@ -77,16 +78,12 @@ export const StyledSelectField = styled.div<PropsStyled>`
     font-size: 1.15rem;
     line-height: ${(props) => props.lh || "2.4"};
     font-weight: 300;
-
-    /* &:focus::placeholder {
-    font-size: 0;
-  } */
     &:focus {
       outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
     }
   }
 `;
-export const StyledTextareaField = styled.div<PropsStyled>`
+export const STextareaField = styled.div<PropsStyled>`
   position: relative;
   width: 100%;
   margin: ${({ margin = "0 0 10px 0" }) => margin};
@@ -104,70 +101,13 @@ export const StyledTextareaField = styled.div<PropsStyled>`
     line-height: ${(props) => props.lh || "2.4"};
     font-weight: 300;
     resize: none;
-
-    /* &:focus::placeholder {
-      font-size: 0;
-    } */
     &:focus {
       outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
     }
   }
 `;
-
-export const StyledTitle1 = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  line-height: 1.5;
-  color: ${({ theme }) => theme.colors.textDark};
-`;
-export const StyledTitle2 = styled.h2`
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  line-height: 1.5;
-  color: ${({ theme }) => theme.colors.textDark};
-`;
-export const StyledLink = styled(NavLink)<{
-  margin?: string;
-  align?: string;
-}>`
-  display: inline-block;
-  text-decoration: underline;
-  color: ${({ theme }) => theme.colors.accentDark};
-  margin: ${({ margin = "0" }) => margin};
-  text-align: ${({ align = "left" }) => align};
-`;
-const buttonStyles = css`
-  display: flex;
-  justify-content: center;
-  white-space: nowrap;
-  align-items: center;
-  font-family: inherit;
-  padding: 15px 30px;
-  font-size: 1.15rem;
-  background: ${({ theme }) => theme.colors.accentDark};
-  border-radius: 24px;
-  color: ${({ theme }) => theme.colors.primaryLigth};
-  cursor: pointer;
-  span {
-    margin-right: 10px;
-  }
-`;
-
-export const StyledButton = styled.button`
-  &:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-  ${buttonStyles};
-  &:focus-visible {
-    outline: ${({ theme }) => `1px solid ${theme.colors.defaultDark}`};
-  }
-`;
-
 // Грабли...
-export const StyledPasswordButton = styled.button`
+export const SPasswordButton = styled.button`
   position: absolute;
   top: 17px;
   right: 15px;
@@ -175,29 +115,52 @@ export const StyledPasswordButton = styled.button`
   color: ${({ theme }) => theme.colors.defaultDark};
 `;
 
-export const StyledNavLinkWithIcon = styled(NavLink)`
-  &:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-  ${buttonStyles}
-`;
-export const StyledText = styled.p<{ align?: string }>`
-  font-size: 1.15em;
-  color: ${({ theme }) => theme.colors.textDark};
-  text-align: ${({ align = "left" }) => align};
-  line-height: 1.2;
-`;
-export const StyledTextMuted = styled(StyledText)`
-  color: ${({ theme }) => theme.colors.defaultDark};
-`;
-export const InvalidText = styled.div`
+export const SInvalidText = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   font-size: 0.875em;
-  color: #dc3545;
+  color: ${({ theme }) => theme.colors.bgDanger};
 `;
-export const StyledHeaderPage = styled.div`
-  margin: 0 30px;
+
+export const SAvatar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 0 0 10px;
+  color: ${({ theme }) => theme.colors.defaultLigth};
+  background: linear-gradient(rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0)),
+    linear-gradient(#55acee, #55acee);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+export const SUserPanel = styled.div`
+  padding: 0 20px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.defaultLigth};
+`;
+
+export const SUserPanelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: ${({ theme }) => theme.heigthUserPanel}; ;
+`;
+export const SGreeting = styled.div`
+  margin: 0 0 0 15px;
+  @media ${({ theme }) => theme.media.small} {
+    display: none;
+  }
+`;
+export const SCreateTestPage = styled.div`
+  width: 600px;
+  @media ${({ theme }) => theme.media.medium} {
+    width: 100%;
+  }
 `;

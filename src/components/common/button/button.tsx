@@ -1,5 +1,6 @@
-import { ComponentPropsWithoutRef, ElementType, useMemo } from "react";
-import * as Styled from "./button.styles";
+import { ComponentPropsWithoutRef, ElementType, FC } from "react";
+import { IconBaseProps } from "react-icons";
+import { SButton } from "./button.styles";
 
 export const buttonPropView = [
   "primary",
@@ -9,7 +10,7 @@ export const buttonPropView = [
   "accent",
 ] as const;
 export const buttonPropForm = ["default", "brick", "round"] as const;
-export const buttonPropSize = ["m", "xs", "s", "l", "xl"] as const;
+export const buttonPropSize = ["xs", "s", "m", "l", "xl"] as const;
 export const buttonPropWidth = ["default", "full"] as const;
 export type ButtonPropView = typeof buttonPropView[number];
 export type ButtonPropForm = typeof buttonPropForm[number];
@@ -24,11 +25,14 @@ type ButtonProps<T extends ElementType> = {
   view?: ButtonPropView;
   form?: ButtonPropForm;
   onlyIcon?: boolean;
-  iconRight?: any;
-  iconLeft?: any;
+  iconRight?: FC<IconBaseProps>;
+  iconLeft?: FC<IconBaseProps>;
 } & ComponentPropsWithoutRef<T>;
 
-function getIconSize(mapIconSize: any, size: ButtonPropSize): void {
+function getIconSize(
+  mapIconSize: Record<ButtonPropSize, string>,
+  size: ButtonPropSize
+): string {
   return mapIconSize[size];
 }
 
@@ -42,7 +46,6 @@ const Button = <T extends ElementType = "button">({
   onlyIcon,
   iconLeft,
   iconRight,
-
   ...rest
 }: ButtonProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>): JSX.Element => {
@@ -50,7 +53,7 @@ const Button = <T extends ElementType = "button">({
   const IconLeft = iconLeft;
   const IconRight = iconRight;
 
-  const mapIconSize = {
+  const mapIconSize: Record<ButtonPropSize, string> = {
     xs: "14px",
     s: "18px",
     m: "18px",
@@ -58,26 +61,26 @@ const Button = <T extends ElementType = "button">({
     xl: "20px",
   };
 
-  const iconSize = useMemo(() => getIconSize(mapIconSize, size), [size]);
-
+  const iconSize: string = getIconSize(mapIconSize, size);
   return (
-    <Styled.BTN
+    <SButton
       as={renderAs as ElementType}
       $view={view}
       $form={form}
       $width={width}
-      onlyIcon={IconOnly}
-      iconLeft={iconLeft}
-      iconRight={iconRight}
       $size={size}
+      $onlyIcon={IconOnly}
+      $iconLeft={IconLeft}
+      $iconRight={IconRight}
       {...rest}
     >
       {IconOnly && <IconOnly size={iconSize} />}
       {!onlyIcon && (iconLeft || iconRight) && label ? (
         <>
-          {iconLeft && (
+          {IconLeft && (
             <>
-              <IconLeft size={iconSize} /> <span>{label}</span>
+              <IconLeft size={iconSize} />
+              <span>{label}</span>
             </>
           )}
           {IconRight && (
@@ -89,7 +92,7 @@ const Button = <T extends ElementType = "button">({
       ) : (
         label
       )}
-    </Styled.BTN>
+    </SButton>
   );
 };
 export default Button;

@@ -24,5 +24,12 @@ const usersService = {
     });
     return data;
   },
+  update: async (content: IUserServer) => {
+    const { data } = await httpService.patch(
+      usersEndPoint + content.userId,
+      content
+    );
+    return data;
+  },
 };
 export default usersService;

@@ -1,7 +1,8 @@
+import { log } from "console";
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaPlayCircle, FaPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux";
 
@@ -13,18 +14,21 @@ import {
   loadTasks,
   setTaskFilter,
 } from "../../store/tasks";
+import { getNameTest } from "../../store/tests";
 import { getIsLoggedIn, loadCurrentUser } from "../../store/users";
-import { StyledContainer } from "../../styles/styles";
 import Button from "../common/button";
 import { TextFiled } from "../common/forms";
-import Loader from "../common/loader";
-import Flex from "../styles/flex";
-import HeaderPageVar1 from "../ui/headerPageVar1";
+import { Loader } from "../common/loader";
+import Text from "../common/text";
+import ControlPanel from "../ui/controlPanel";
 import QuestionsTable from "../ui/questionsTable";
 
-const TestPageAuth = () => {
+type TestPageAuthProps = {
+  isMobile?: boolean;
+};
+
+const TestPageAuth = ({ isMobile }: TestPageAuthProps) => {
   const [filter, setFilter] = useState<string>("");
-  const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -35,6 +39,8 @@ const TestPageAuth = () => {
   const isAuth = useSelector(getIsLoggedIn());
 
   const { testId } = useParams();
+
+  const testName = useSelector(getNameTest(testId!));
 
   useEffect(() => {
     dispatch(loadTasks(testId!));
@@ -47,7 +53,7 @@ const TestPageAuth = () => {
 
   useEffect(() => {
     setFilter("");
-  }, [pathname]);
+  }, [testId]);
 
   const goRedirect = () => {
     navigate("/exercise");
@@ -71,40 +77,36 @@ const TestPageAuth = () => {
     navigate(`/tasks/${id}`);
   };
   return (
-    <StyledContainer>
-      <HeaderPageVar1 title="Тест - Название теста">
-        <Link to="/">
-          <Button
-            size="l"
-            label="Вернуться назад"
-            iconLeft={FaAngleLeft}
-            form="round"
-          />
-        </Link>
-        <Link to="/tasks/create">
-          <Button
-            size="l"
-            label="Добавить вопрос"
-            iconLeft={FaPlus}
-            form="round"
-          />
-        </Link>
+    <>
+      <ControlPanel title={`Тест - ${testName}`}>
         <Button
-          size="l"
+          renderAs={NavLink}
+          to="/"
+          label="Вернуться назад"
+          iconLeft={FaAngleLeft}
+          view="secondary"
+        />
+        <Button
+          renderAs={NavLink}
+          to="/tasks/create"
+          label="Добавить вопрос"
+          iconLeft={FaPlus}
+        />
+        <Button
           label="Начать тест"
           view="accent"
           iconRight={FaPlayCircle}
-          form="round"
           onClick={goRedirect}
           disabled={isWorkingTasks.length <= 0}
         />
-      </HeaderPageVar1>
+      </ControlPanel>
       <TextFiled
         type="text"
         placeholder="Найти вопрос"
         name="search"
         value={filter}
         onChange={handleSetFilter}
+        disabled={tasks.length <= 0 && !filter}
       />
 
       {isLoadingTasks ? (
@@ -115,13 +117,18 @@ const TestPageAuth = () => {
           onRemoveTask={handleRemoveTask}
           onEditTask={handleEditTask}
           onOpenPage={handleOpenSinglePage}
+          isMobile={isMobile}
         />
+      ) : filter ? (
+        <Text align="center" size="l">
+          По вашему запросу ничего не найдено
+        </Text>
       ) : (
-        <Flex justify="center" align="center" direction="column">
-          <p>У вас еще нет вопросов</p>
-        </Flex>
+        <Text align="center" size="l" view="secondary">
+          В этот тест еще не добавлены вопросы
+        </Text>
       )}
-    </StyledContainer>
+    </>
   );
 };
 

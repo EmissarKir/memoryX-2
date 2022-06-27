@@ -80,6 +80,8 @@ export const loadTests =
 
 // Селекторы
 export const getTests = () => (state: RootState) => state.tests.entities;
+export const getNameTest = (id: string) => (state: RootState) =>
+  state.tests.entities.find((test) => test.id === id)?.name;
 export const getTestsLoadingStatus = () => (state: RootState) =>
   state.tests.isLoading;
 

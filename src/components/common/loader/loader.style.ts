@@ -1,13 +1,13 @@
-import React from "react";
 import styled from "styled-components";
 
-type Props = {};
-// 150px 1/2 от ширины sidebar
-const StyledLoader = styled.div`
+export const SLoader = styled.div`
   position: absolute;
   top: 50%;
   left: calc(50% + 150px);
   transform: translate(-50%, -50%);
+  @media ${({ theme }) => theme.media.large} {
+    left: 50%;
+  }
   .lds-spinner {
     color: official;
     display: inline-block;
@@ -87,26 +87,3 @@ const StyledLoader = styled.div`
     }
   }
 `;
-
-const Loader = (props: Props) => {
-  return (
-    <StyledLoader>
-      <div className="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </StyledLoader>
-  );
-};
-
-export default Loader;

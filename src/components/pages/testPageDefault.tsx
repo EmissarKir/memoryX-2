@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaPlayCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux";
 import {
@@ -10,17 +10,14 @@ import {
   loadTasks,
   setTaskFilter,
 } from "../../store/tasks";
-import { StyledContainer } from "../../styles/styles";
 import Button from "../common/button";
 import { TextFiled } from "../common/forms";
-import Loader from "../common/loader";
-import Flex from "../styles/flex";
-import HeaderPageVar1 from "../ui/headerPageVar1";
+import { Loader } from "../common/loader";
+import Flex from "../stylesComp/flex";
+import ControlPanel from "../ui/controlPanel";
 import QuestionsTable from "../ui/questionsTable";
 
-type Props = {};
-
-const TestPageDefault = (props: Props) => {
+const TestPageDefault = () => {
   const [filter, setFilter] = useState<string>("");
   const { pathname } = useLocation();
 
@@ -57,26 +54,23 @@ const TestPageDefault = (props: Props) => {
     navigate(`/tasks/${id}`);
   };
   return (
-    <StyledContainer>
-      <HeaderPageVar1 title="Тест - Название теста">
-        <Link to="/">
-          <Button
-            size="l"
-            label="Вернуться назад"
-            iconLeft={FaAngleLeft}
-            form="round"
-          />
-        </Link>
+    <>
+      <ControlPanel title="Тест - образец">
         <Button
-          size="l"
+          renderAs={NavLink}
+          to="/"
+          view="secondary"
+          label="Вернуться назад"
+          iconLeft={FaAngleLeft}
+        />
+
+        <Button
           label="Начать тест"
           view="accent"
           iconRight={FaPlayCircle}
-          form="round"
           onClick={goRedirect}
         />
-      </HeaderPageVar1>
-
+      </ControlPanel>
       <TextFiled
         type="text"
         placeholder="Найти вопрос"
@@ -94,7 +88,7 @@ const TestPageDefault = (props: Props) => {
           <p>По вашим условиям ничего не найдено</p>
         </Flex>
       )}
-    </StyledContainer>
+    </>
   );
 };
 

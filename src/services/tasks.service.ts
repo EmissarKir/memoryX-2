@@ -1,4 +1,4 @@
-import { ITaskServer } from "./../types/types";
+import { ITaskServer, IUpdateValue } from "./../types/types";
 import httpService from "./http.service";
 
 const tasksEndPoint = "tasks/";
@@ -22,8 +22,7 @@ const tasksService = {
     const { data } = await httpService.put(tasksEndPoint + content.id, content);
     return data;
   },
-  // заментьб any
-  updateValue: async (taskId: string, value: any) => {
+  updateValue: async (taskId: string, value: IUpdateValue) => {
     const { data } = await httpService.patch(tasksEndPoint + taskId, value);
     return data;
   },
@@ -33,7 +32,7 @@ const tasksService = {
   },
   update: async (content: ITaskServer) => {
     const { data } = await httpService.patch(
-      tasksEndPoint + content.id, // при MONGO заменить на _id
+      tasksEndPoint + content.id,
       content
     );
     return data;

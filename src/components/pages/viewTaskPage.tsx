@@ -2,10 +2,10 @@ import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
-import { StyledContainer, StyledTitle2 } from "../../styles/styles";
 import { ITaskServer } from "../../types/types";
 import Button from "../common/button";
-import HeaderPageVar1 from "../ui/headerPageVar1";
+import Text from "../common/text/text";
+import ControlPanel from "../ui/controlPanel";
 
 type Props = {
   task?: ITaskServer;
@@ -17,19 +17,22 @@ const ViewTaskPage = ({ task }: Props) => {
     navigate(-1);
   };
   return (
-    <StyledContainer>
-      <HeaderPageVar1 title="Просмотр вопроса">
+    <>
+      <ControlPanel title="Просмотр вопроса">
         <Button
-          size="l"
           label="Вернуться назад"
           iconLeft={FaAngleLeft}
-          form="round"
+          view="secondary"
           onClick={goBack}
         />
-      </HeaderPageVar1>
-      <StyledTitle2>{task?.question}</StyledTitle2>
-      <ReactMarkdown>{task!.answer}</ReactMarkdown>
-    </StyledContainer>
+      </ControlPanel>
+      <Text weight="bold" size="2l">
+        {task?.question}
+      </Text>
+      <Text size="l">
+        <ReactMarkdown>{task!.answer}</ReactMarkdown>
+      </Text>
+    </>
   );
 };
 

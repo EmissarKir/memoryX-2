@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/createStore";
 
 import { logOut } from "../store/users";
 
-const LogOut = () => {
-  const dispatch = useDispatch();
+const LogOut: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(logOut());

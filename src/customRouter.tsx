@@ -3,10 +3,14 @@ import { BrowserRouterProps, Router } from "react-router-dom";
 import { BrowserHistory } from "history";
 import customHistory from "./utils/history";
 
-interface Props extends BrowserRouterProps {
+interface CustomRouterProps extends BrowserRouterProps {
   history: BrowserHistory;
 }
-export const CustomRouter = ({ basename, history, children }: Props) => {
+export const CustomRouter = ({
+  basename,
+  history,
+  children,
+}: CustomRouterProps) => {
   const [state, setState] = useState({
     action: history.action,
     location: history.location,

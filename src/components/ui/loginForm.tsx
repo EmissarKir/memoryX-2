@@ -1,27 +1,23 @@
-import React from "react";
-import * as yup from "yup";
+import { FC } from "react";
 import { IUserLogIn } from "../../types/types";
-import { login } from "../../store/users";
 import { useAppDispatch } from "../../hooks/redux";
 import Button from "../common/button";
 import { FaSignInAlt } from "react-icons/fa";
 import { FormComponent, TextFiled } from "../common/forms";
+import { login } from "../../store/users";
+import { validateSchemeLoginForm } from "../../validateScheme";
 
-export default function LoginForm() {
+const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
-
-  const validateScheme = yup.object().shape({
-    email: yup
-      .string()
-      .required("Электронная почта обязательна для заполнения")
-      .email("Email введен некорректно"),
-  });
 
   const handleSubmit = (data: IUserLogIn) => {
     dispatch(login(data));
   };
   return (
-    <FormComponent onSubmit={handleSubmit} validateScheme={validateScheme}>
+    <FormComponent
+      onSubmit={handleSubmit}
+      validateScheme={validateSchemeLoginForm}
+    >
       <TextFiled
         placeholder="Введите email"
         name="email"
@@ -32,10 +28,11 @@ export default function LoginForm() {
       <Button
         type="submit"
         label="Войти"
-        size="xl"
         iconLeft={FaSignInAlt}
         width="full"
+        size="xl"
       />
     </FormComponent>
   );
-}
+};
+export default LoginForm;

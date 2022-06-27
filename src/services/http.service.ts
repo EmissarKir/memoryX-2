@@ -1,3 +1,4 @@
+import { IUserServer } from "./../types/types";
 import axios, { AxiosRequestConfig } from "axios";
 import configFile from "../config.json";
 import { httpAuth } from "./auth.service";
@@ -45,7 +46,7 @@ http.interceptors.request.use(
   }
 );
 
-function transormData(data: any) {
+function transormData(data: Record<string, IUserServer>) {
   return data && !data.userId && !data.name && !data.question
     ? Object.keys(data).map((key) => ({
         ...data[key],

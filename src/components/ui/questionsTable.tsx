@@ -5,9 +5,14 @@ import { ITaskServer } from "../../types/types";
 import { limitStr } from "../../utils/limitStr";
 import { timeConverter } from "../../utils/timeConverter";
 import Button from "../common/button";
+import Text from "../common/text/text";
+import Flex from "../stylesComp/flex";
 
 const StyledQuestionsTable = styled.div`
   margin-top: 30px;
+  @media ${({ theme }) => theme.media.medium} {
+    margin-top: 0;
+  }
   table {
     border-collapse: collapse;
     width: 100%;
@@ -23,11 +28,27 @@ const StyledQuestionsTable = styled.div`
         text-align: left;
       }
     }
+    @media ${({ theme }) => theme.media.medium} {
+      display: none;
+    }
   }
   tbody {
+    @media ${({ theme }) => theme.media.medium} {
+      tr,
+      td {
+        display: block;
+        width: 100%;
+      }
+    }
     tr {
+      cursor: pointer;
       &:hover {
         background-color: ${({ theme }) => theme.colors.accentLigth};
+      }
+
+      @media ${({ theme }) => theme.media.medium} {
+        border-bottom: 1px solid ${({ theme }) => theme.colors.defaultLigth};
+        padding: 10px 0;
       }
     }
 
@@ -40,6 +61,9 @@ const StyledQuestionsTable = styled.div`
       &:nth-child(1),
       &:nth-child(2) {
         text-align: left;
+      }
+      @media ${({ theme }) => theme.media.medium} {
+        padding: 0.2em;
       }
     }
   }
@@ -68,13 +92,15 @@ const StyledBadge = styled.div<BadgeProps>`
   background: ${({ isWorking, theme }) =>
     isWorking ? theme.colors.bgDanger : theme.colors.bgSuccess};
   padding: 10px;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.controlRadius};
   color: ${({ theme }) => theme.colors.primaryLigth};
   text-align: center;
   white-space: nowrap;
 `;
+
 type QuestionsTableProps = {
   items?: ITaskServer[];
+  isMobile?: boolean;
   onRemoveTask?: (id: string, e: React.SyntheticEvent) => void;
   onEditTask?: (id: string, e: React.SyntheticEvent) => void;
   onOpenPage?: (id: string) => void;
@@ -85,6 +111,7 @@ export default function QuestionsTable({
   onRemoveTask,
   onEditTask,
   onOpenPage,
+  isMobile,
 }: QuestionsTableProps) {
   return (
     <StyledQuestionsTable>
@@ -107,8 +134,12 @@ export default function QuestionsTable({
 
               return (
                 <tr key={item.id} onClick={() => onOpenPage?.(item.id)}>
-                  <td>{limitStr(question, 150)}</td>
-                  <td>{limitStr(answer, 150)}</td>
+                  <td>
+                    <Text size="s">{limitStr(question, 150)}</Text>
+                  </td>
+                  <td>
+                    <Text size="s">{limitStr(answer, 150)}</Text>
+                  </td>
                   <td>{item.count}</td>
                   <td>
                     <StyledBadge isWorking={item.status === "в работе"}>
@@ -116,24 +147,26 @@ export default function QuestionsTable({
                     </StyledBadge>
                   </td>
                   <td>
-                    <div className="date">
-                      <span className="date__title">
+                    <Flex direction="column" justify="center" align="center">
+                      <Text marginBottom="0px">
                         {timeConverter(item.createdBy, 1)}
-                      </span>
-                      <span className="date__subtitle">
+                      </Text>
+                      <Text view="secondary" weight="thin">
                         {timeConverter(item.createdBy, 2)}
-                      </span>
-                    </div>
+                      </Text>
+                    </Flex>
                   </td>
                   <td>
                     {onEditTask && (
                       <>
                         <Button
-                          form="round"
+                          form={isMobile ? "brick" : "round"}
+                          width={isMobile ? "full" : "default"}
+                          size={isMobile ? "l" : "xl"}
                           view="ghost"
                           iconLeft={FaRegEdit}
-                          onlyIcon
-                          size="xl"
+                          label={isMobile ? "Редактировать" : undefined}
+                          onlyIcon={isMobile ? false : true}
                           onClick={(e: React.MouseEvent) =>
                             onEditTask?.(item.id, e)
                           }
@@ -144,11 +177,13 @@ export default function QuestionsTable({
                   <td>
                     {onRemoveTask && (
                       <Button
-                        form="round"
+                        form={isMobile ? "brick" : "round"}
+                        width={isMobile ? "full" : "default"}
+                        size={isMobile ? "l" : "xl"}
                         view="ghost"
                         iconLeft={FaRegTimesCircle}
-                        onlyIcon
-                        size="xl"
+                        label={isMobile ? "Удалить" : undefined}
+                        onlyIcon={isMobile ? false : true}
                         onClick={(e: React.MouseEvent) =>
                           onRemoveTask?.(item.id, e)
                         }

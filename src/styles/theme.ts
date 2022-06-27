@@ -11,7 +11,6 @@ export const baseTheme: DefaultTheme = {
     primaryLigth: "#fff",
     defaultLigth: "#EEF0F3",
     defaultDark: "grey",
-    // "#EDF0F5",
     bg: "#E5E4E8",
     font: "#151D28",
   },
@@ -21,7 +20,7 @@ export const baseTheme: DefaultTheme = {
     buttonFontSize: "16px",
   },
   heigthUserPanel: "100px",
-  heigthHeaderPage: "80px",
+  heigthControlPanel: "80px",
   widthSidebar: "300px",
 
   controlRadius: "5px",
@@ -56,7 +55,12 @@ export const baseTheme: DefaultTheme = {
   controlSpaceXL: "30px",
 
   iconIndent: "10px",
+
   fontWeightTextRegular: 400,
+
+  fontColorPrimary: "#415167",
+  fontColorSecondary: "rgba(0, 32, 51, 0.6);",
+  fontColorAccent: "#C7A17A",
 
   media: {
     extraLarge: "(max-width: 1140px)",
@@ -64,23 +68,9 @@ export const baseTheme: DefaultTheme = {
     medium: "(max-width: 720px)",
     small: "(max-width: 540px)",
   },
-
-  // // in px
-  // sizes: {
-  //   header: { height: 56 },
-  //   container: { width: 1200 },
-  //   footer: { height: 128 },
-  //   modal: { width: 540 },
-  // },
-
-  // // in ms
-  // durations: {
-  //   ms300: 300,
-  // },
-
-  // // z-index
-  // order: {
-  //   header: 50,
-  //   modal: 100,
-  // },
+  // z-index
+  order: {
+    sidebar: 999,
+    backDrop: 998,
+  },
 };

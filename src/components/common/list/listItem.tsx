@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ITestServer } from "../types/types";
+import { ITestServer } from "../../../types/types";
 
 const StyledItem = styled.div`
   border: 1px solid lightgrey;
@@ -17,7 +17,6 @@ interface ITestItemProps {
   onClick: (item: ITestServer) => void;
 }
 
-const ListItem = ({ item, onClick }: ITestItemProps): JSX.Element => {
+export const ListItem = ({ item, onClick }: ITestItemProps): JSX.Element => {
   return <StyledItem onClick={() => onClick(item)}>{item.name}</StyledItem>;
 };
-export default ListItem;

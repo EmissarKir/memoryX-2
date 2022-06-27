@@ -8,30 +8,42 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useSelector } from "react-redux";
+import { getErrors } from "../../../store/users";
 
-type PropsWithChild = {
+interface PropsWithChild {
   children?: React.ReactNode;
   validateScheme: any;
   onSubmit: any;
   name: string;
-};
+}
 
-type Props = {
+interface FormComponentProps {
   children?: React.ReactNode;
   validateScheme: any;
-  onSubmit: any;
+  onSubmit: (data: any) => void;
   defaultData?: any;
-};
+}
 
-export const FormComponent: FC<Props> = ({
+export const FormComponent: FC<FormComponentProps> = ({
   children,
   validateScheme,
   onSubmit,
   defaultData,
 }) => {
-  const [data, setData] = useState<{ [key: string]: any }>(defaultData || {});
-
+  const [data, setData] = useState<{ [key: string]: string }>(
+    defaultData || {}
+  );
   const [errors, setErrors] = useState<{ [key: string]: any }>({});
+
+  const isError = useSelector(getErrors());
+
+  useEffect(() => {
+    if (isError) {
+      setErrors(isError);
+    }
+  }, [isError]);
+
   const handleChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
       setData((prevState) => ({

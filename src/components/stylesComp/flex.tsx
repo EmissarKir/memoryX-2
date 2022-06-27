@@ -5,8 +5,9 @@ type FlexProps = {
   justify?: string;
   direction?: string;
   align?: string;
+  height?: string;
   margin?: string;
-  children: React.ReactChild | React.ReactNode;
+  children: React.ReactNode;
 };
 const StyledFlex = styled.div<FlexProps>`
   display: flex;
@@ -14,7 +15,7 @@ const StyledFlex = styled.div<FlexProps>`
   justify-content: ${({ justify = "stretch" }) => justify};
   align-items: ${({ align = "stretch" }) => align};
   margin: ${({ margin = "0" }) => margin};
-  height: 100%;
+  height: ${({ height = "auto" }) => height};
 `;
 export default function Flex({ ...props }: FlexProps) {
   return <StyledFlex {...props} />;

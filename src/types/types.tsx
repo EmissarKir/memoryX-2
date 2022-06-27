@@ -1,3 +1,10 @@
+import {
+  DefaultTheme,
+  FlattenInterpolation,
+  FlattenSimpleInterpolation,
+  ThemeProps,
+} from "styled-components";
+
 export type QuestionProps = {
   name: string;
 };
@@ -49,3 +56,13 @@ export interface ITaskServer extends ITask {
   createdBy: number;
   maxRepeat: number;
 }
+
+export interface IUpdateValue {
+  [key: string]: string | number;
+}
+
+export type StyledVariants<E extends string | number> = {
+  [key in E]?:
+    | FlattenSimpleInterpolation
+    | FlattenInterpolation<ThemeProps<DefaultTheme>>;
+};

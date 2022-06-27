@@ -1,10 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import * as yup from "yup";
-
-import { StyledContainer } from "../../styles/styles";
-import HeaderPageVar1 from "../ui/headerPageVar1";
+import ControlPanel from "../ui/controlPanel";
 import { ITaskServer } from "../../types/types";
 import { updateTask } from "../../store/tasks";
 
@@ -12,29 +9,19 @@ import { useAppDispatch } from "../../hooks/redux";
 import Button from "../common/button";
 import { FaAngleLeft, FaSketch } from "react-icons/fa";
 import { FormComponent, SelectField, TextAreaField } from "../common/forms";
+import { validateSchemeEditTaskPage } from "../../validateScheme";
 
-type Props = {
-  task?: ITaskServer;
-};
+interface EditTaskPageProps {
+  task: ITaskServer;
+}
 
 const optionsTaskStatus = [
   { value: "в работе", label: "в работе" },
   { value: "завершен", label: "завершен" },
 ];
-
-export default function EditTaskPage({ task }: Props) {
+const EditTaskPage: FC<EditTaskPageProps> = ({ task }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const validateScheme = yup.object().shape({
-    answer: yup
-      .string()
-      .required("Поле обязательно для заполнения")
-      .min(3, "Поле должно содержать минимум 3 символа"),
-    question: yup
-      .string()
-      .required("Поле обязательно для заполнения")
-      .min(3, "Поле должно содержать минимум 3 символа"),
-  });
 
   const goBack = () => {
     navigate(-1);
@@ -43,18 +30,17 @@ export default function EditTaskPage({ task }: Props) {
     dispatch(updateTask(data));
   };
   return (
-    <StyledContainer>
-      <HeaderPageVar1 title="Редактирование вопроса">
+    <>
+      <ControlPanel title="Редактирование вопроса">
         <Button
-          size="l"
           label="Вернуться назад"
           iconLeft={FaAngleLeft}
-          form="round"
+          view="secondary"
           onClick={goBack}
         />
-      </HeaderPageVar1>
+      </ControlPanel>
       <FormComponent
-        validateScheme={validateScheme}
+        validateScheme={validateSchemeEditTaskPage}
         onSubmit={handleSubmit}
         defaultData={task}
       >
@@ -75,8 +61,9 @@ export default function EditTaskPage({ task }: Props) {
           defaultOption="Choose..."
           options={optionsTaskStatus}
         />
-        <Button type="submit" label="Сохранить" size="l" iconRight={FaSketch} />
+        <Button type="submit" label="Сохранить" iconRight={FaSketch} />
       </FormComponent>
-    </StyledContainer>
+    </>
   );
-}
+};
+export default EditTaskPage;

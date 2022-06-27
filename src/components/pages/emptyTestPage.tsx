@@ -1,36 +1,22 @@
 import React from "react";
-import styled from "styled-components";
-import {
-  StyledNavLinkWithIcon,
-  StyledPage,
-  StyledTextMuted,
-} from "../../styles/styles";
-import Flex from "../styles/flex";
+import { FaPlus } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import Button from "../common/button";
+import Text from "../common/text";
+import Flex from "../stylesComp/flex";
 
-type Props = {};
-
-const StyledContainer = styled.div`
-  & > *:not(:last-child) {
-    margin-bottom: 30px;
-  }
-`;
-
-export default function EmptyTestPage({}: Props) {
+export default function EmptyTestPage() {
   return (
-    <StyledPage>
-      <Flex justify="center" align="center" direction="column">
-        <StyledContainer>
-          <StyledTextMuted align="center">
-            У вас еще нет тестов...
-          </StyledTextMuted>
-          <StyledNavLinkWithIcon to="tests/create">
-            <span>
-              <i className="fa-solid fa-plus"></i>
-            </span>
-            Создать новый тест
-          </StyledNavLinkWithIcon>
-        </StyledContainer>
-      </Flex>
-    </StyledPage>
+    <Flex justify="center" align="center" direction="column">
+      <Text align="center" view="secondary" size="l">
+        У вас еще нет тестов...
+      </Text>
+      <Button
+        renderAs={NavLink}
+        to="/tests/create"
+        label="Создать новый тест"
+        iconLeft={FaPlus}
+      />
+    </Flex>
   );
 }

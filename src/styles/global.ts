@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-
   *,
 *::after,
 *::before {
@@ -22,15 +21,11 @@ img {
 html,
 body {
    line-height: 1;
-  /* background: #000; */
   height: 100%;
   width: 100%;
-  font-family: "Ubuntu", sans-serif;
- 
- 
+  font-family: "Arial", sans-serif; 
 }
 body {
   padding: 0 calc(20px - (100vw - 100%)) 0 0;
 }
-
 `;

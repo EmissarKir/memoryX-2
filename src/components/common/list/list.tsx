@@ -6,6 +6,6 @@ interface ListProps<T> {
   renderItem: (item: T) => JSX.Element;
 }
 
-export default function List<T>({ items, renderItem }: ListProps<T>) {
+export function List<T>({ items, renderItem }: ListProps<T>) {
   return <div>{items.map(renderItem)}</div>;
 }

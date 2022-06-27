@@ -22,7 +22,7 @@ declare module "styled-components" {
       buttonFontSize: string;
     };
     heigthUserPanel: string;
-    heigthHeaderPage: string;
+    heigthControlPanel: string;
     widthSidebar: string;
 
     controlRadius: string;
@@ -56,13 +56,22 @@ declare module "styled-components" {
     controlSpaceXL: string;
 
     iconIndent: string;
+
     fontWeightTextRegular: number;
+
+    fontColorPrimary: string;
+    fontColorSecondary: string;
+    fontColorAccent: string;
 
     media: {
       extraLarge: string;
       large: string;
       medium: string;
       small: string;
+    };
+    order: {
+      sidebar: number;
+      backDrop: number;
     };
   }
 }

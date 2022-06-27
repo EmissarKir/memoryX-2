@@ -1,8 +1,14 @@
 import React from "react";
-import { StyledSelectField } from "../../../styles/styles";
+import { SSelectField } from "../../../styles/styles";
+
+interface ISelectOptions {
+  value: string;
+  label: string;
+}
+
 interface ISelectFieldProps {
   defaultOption: string;
-  options: any[];
+  options: ISelectOptions[];
   label?: string;
   placeholder?: string;
   name: string;
@@ -32,7 +38,7 @@ export const SelectField = ({
 }: ISelectFieldProps) => {
   return (
     <div>
-      <StyledSelectField>
+      <SSelectField>
         <div>
           {/* {label ? <label htmlFor={name}>{label}</label> : null} */}
           <select
@@ -55,7 +61,7 @@ export const SelectField = ({
               })}
           </select>
         </div>
-      </StyledSelectField>
+      </SSelectField>
     </div>
   );
 };

@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import EmptyTestPage from "../components/pages/emptyTestPage";
 import TestsListPage from "../components/pages/testsListPage";
 import { getTests, getTestsLoadingStatus, loadTests } from "../store/tests";
 import { getIsLoggedIn, loadCurrentUser } from "../store/users";
-import Loader from "../components/common/loader";
 import { useAppDispatch } from "../hooks/redux";
+import ControlPanel from "../components/ui/controlPanel";
+import { SContent } from "../styles/styles";
+import GreetingMessage from "../components/ui/greetingMessage";
+import { Loader } from "../components/common/loader";
 
-type Props = {};
-
-export default function TestsPage({}: Props) {
+const TestsPage: FC = () => {
   const dispatch = useAppDispatch();
   const tests = useSelector(getTests());
   const isAuth = useSelector(getIsLoggedIn());
@@ -24,11 +25,23 @@ export default function TestsPage({}: Props) {
       dispatch(loadCurrentUser());
     }
   }, []);
+
   if (isTestLoading) return <Loader />;
 
-  return tests.length === 0 ? (
-    <EmptyTestPage />
-  ) : (
-    <TestsListPage tests={tests} />
+  return (
+    <>
+      <ControlPanel title="Мои тесты"></ControlPanel>
+      <SContent>
+        {tests.length === 0 ? (
+          <EmptyTestPage />
+        ) : (
+          <>
+            <TestsListPage tests={tests} />
+            {!isAuth && <GreetingMessage />}
+          </>
+        )}
+      </SContent>
+    </>
   );
-}
+};
+export default TestsPage;

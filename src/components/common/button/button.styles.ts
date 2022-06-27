@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { StyledVariants } from "../../../types/types";
 import {
   ButtonPropForm,
   ButtonPropSize,
@@ -7,42 +8,124 @@ import {
 } from "./button";
 
 interface IStyledButtonProps {
-  $view?: ButtonPropView;
-  $form?: ButtonPropForm;
-  $size?: ButtonPropSize;
-  $width?: ButtonPropWidth;
-  onlyIcon?: boolean;
-  iconRight?: boolean;
-  iconLeft?: boolean;
+  $view: ButtonPropView;
+  $form: ButtonPropForm;
+  $size: ButtonPropSize;
+  $width: ButtonPropWidth;
+  $onlyIcon?: boolean;
+  $iconRight?: boolean;
+  $iconLeft?: boolean;
 }
 
-const viewPrimary = css`
-  color: ${({ theme }) => theme.controlTypoPrimary};
-  background: ${({ theme }) => theme.controlTypoBgPrimary};
-`;
-const viewClear = css`
-  color: ${({ theme }) => theme.controlTypoClear};
-`;
-const viewGhost = css`
-  color: ${({ theme }) => theme.controlTypoGhost};
-  background: ${({ theme }) => theme.controlTypoBgGhost};
-`;
-const viewSecondary = css`
-  color: ${({ theme }) => theme.controlTypoSecondary};
-  border: 1px solid ${({ theme }) => theme.controlTypoSecondary};
-`;
-const viewAccent = css`
-  color: ${({ theme }) => theme.controlTypoAccent};
-  background: ${({ theme }) => theme.controlTypoBgAccent};
-`;
+const View: StyledVariants<ButtonPropView> = {
+  primary: css`
+    color: ${({ theme }) => theme.controlTypoPrimary};
+    background: ${({ theme }) => theme.controlTypoBgPrimary};
 
-const positionOnlyIcon = css`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: ${({ theme }) => theme.buttons.buttonHeigth};
-  padding: 0;
-`;
+    &:hover {
+      background: #b4814d;
+    }
+  `,
+  clear: css`
+    color: ${({ theme }) => theme.controlTypoClear};
+  `,
+  ghost: css`
+    color: ${({ theme }) => theme.controlTypoGhost};
+    background: ${({ theme }) => theme.controlTypoBgGhost};
+    &:hover {
+      color: ${({ theme }) => theme.controlTypoAccent};
+      background: ${({ theme }) => theme.controlTypoBgAccent};
+    }
+  `,
+  secondary: css`
+    color: ${({ theme }) => theme.controlTypoSecondary};
+    border: 1px solid ${({ theme }) => theme.controlTypoSecondary};
+    &:hover {
+      color: ${({ theme }) => theme.controlTypoPrimary};
+      background: ${({ theme }) => theme.controlTypoBgPrimary};
+    }
+  `,
+  accent: css`
+    color: ${({ theme }) => theme.controlTypoAccent};
+    background: ${({ theme }) => theme.controlTypoBgAccent};
+    &:hover {
+      background: #516581;
+    }
+  `,
+};
+const Form: StyledVariants<ButtonPropForm> = {
+  default: css``,
+  brick: css`
+    border-radius: 0;
+  `,
+  round: css`
+    border-radius: 99rem;
+  `,
+};
+
+const Width: StyledVariants<ButtonPropWidth> = {
+  default: css`
+    width: auto;
+  `,
+  full: css`
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  `,
+};
+
+const Size: StyledVariants<ButtonPropSize> = {
+  m: css`
+    font-size: ${({ theme }) => theme.controlTextSizeM};
+    line-height: ${({ theme }) => theme.controlHeightM};
+    height: ${({ theme }) => theme.controlHeightM};
+    padding: 0 ${({ theme }) => theme.controlSpaceM};
+  `,
+  xs: css`
+    font-size: ${({ theme }) => theme.controlTextSizeXS};
+    line-height: ${({ theme }) => theme.controlHeightXS};
+    height: ${({ theme }) => theme.controlHeightXS};
+    padding: 0 ${({ theme }) => theme.controlSpaceXS};
+  `,
+  s: css`
+    font-size: ${({ theme }) => theme.controlTextSizeS};
+    line-height: ${({ theme }) => theme.controlHeightS};
+    height: ${({ theme }) => theme.controlHeightS};
+    padding: 0 ${({ theme }) => theme.controlSpaceS};
+  `,
+  l: css`
+    font-size: ${({ theme }) => theme.controlTextSizeL};
+    line-height: ${({ theme }) => theme.controlHeightL};
+    height: ${({ theme }) => theme.controlHeightL};
+    padding: 0 ${({ theme }) => theme.controlSpaceL};
+  `,
+  xl: css`
+    font-size: ${({ theme }) => theme.controlTextSizeXL};
+    line-height: ${({ theme }) => theme.controlHeightXL};
+    height: ${({ theme }) => theme.controlHeightXL};
+    padding: 0 ${({ theme }) => theme.controlSpaceXL};
+  `,
+};
+// в зависимости от размера кнопки (при условии отображения только иконки), устанавливается ширина кнопки равная высоте кнопке
+const RoundIcon: StyledVariants<ButtonPropSize> = {
+  m: css`
+    ${({ theme }) => theme.controlHeightM};
+  `,
+  xs: css`
+    ${({ theme }) => theme.controlHeightXS};
+  `,
+  s: css`
+    ${({ theme }) => theme.controlHeightS};
+  `,
+  l: css`
+    ${({ theme }) => theme.controlHeightL};
+  `,
+  xl: css`
+    ${({ theme }) => theme.controlHeightXL};
+  `,
+};
+
 const positionIconRight = css`
   display: inline-flex;
   align-items: center;
@@ -57,61 +140,11 @@ const positionIconLeft = css`
     margin-left: ${({ theme }) => theme.iconIndent};
   }
 `;
-const positionDefault = css`
-  display: inline-block;
-`;
-
-const formBrick = css`
-  border-radius: 0;
-`;
-const formRound = css`
-  border-radius: 99rem;
-`;
-const sizeXS = css`
-  ${({ theme }) => (
-    (theme.buttons.buttonHeigth = theme.controlHeightXS),
-    (theme.buttons.buttonFontSize = theme.controlTextSizeXS),
-    (theme.buttons.buttonSpace = theme.controlSpaceXS)
-  )}
-`;
-const sizeM = css`
-  ${({ theme }) => (
-    (theme.buttons.buttonHeigth = theme.controlHeightM),
-    (theme.buttons.buttonFontSize = theme.controlTextSizeM),
-    (theme.buttons.buttonSpace = theme.controlSpaceM)
-  )}
-`;
-const sizeS = css`
-  ${({ theme }) => (
-    (theme.buttons.buttonHeigth = theme.controlHeightS),
-    (theme.buttons.buttonFontSize = theme.controlTextSizeS),
-    (theme.buttons.buttonSpace = theme.controlSpaceS)
-  )}
-`;
-const sizeL = css`
-  ${({ theme }) => (
-    (theme.buttons.buttonHeigth = theme.controlHeightL),
-    (theme.buttons.buttonFontSize = theme.controlTextSizeL),
-    (theme.buttons.buttonSpace = theme.controlSpaceL)
-  )}
-`;
-const sizeXL = css`
-  ${({ theme }) => (
-    (theme.buttons.buttonHeigth = theme.controlHeightXL),
-    (theme.buttons.buttonFontSize = theme.controlTextSizeXL),
-    (theme.buttons.buttonSpace = theme.controlSpaceXL)
-  )}
-`;
-
-export const BTN = styled.button<IStyledButtonProps>`
+export const SButton = styled.button<IStyledButtonProps>`
   position: relative;
   overflow: hidden;
   display: inline-block;
   max-width: 100%;
-  font-size: ${({ theme }) => theme.buttons.buttonFontSize};
-  line-height: ${({ theme }) => theme.buttons.buttonHeigth};
-  height: ${({ theme }) => theme.buttons.buttonHeigth};
-  padding: 0 ${({ theme }) => theme.buttons.buttonSpace};
   background: transparent;
   border: none;
   border-radius: ${({ theme }) => theme.controlRadius};
@@ -119,8 +152,8 @@ export const BTN = styled.button<IStyledButtonProps>`
   white-space: nowrap;
   text-decoration: none;
   text-overflow: ellipsis;
-  transition: background-color 0.15s ease, border-color 0.15s ease,
-    box-shadow 0.15s ease, color 0.15s ease, fill 0.15s ease;
+  transition: color 0.35s cubic-bezier(0.3, 0.1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.3, 0.1, 0.3, 1);
   cursor: pointer;
   flex-shrink: 0;
   -webkit-appearance: none;
@@ -128,68 +161,20 @@ export const BTN = styled.button<IStyledButtonProps>`
     opacity: 0.6;
     pointer-events: none;
   }
-  ${({ $view }) => {
-    switch ($view) {
-      case "primary":
-        return viewPrimary;
-      case "clear":
-        return viewClear;
-      case "ghost":
-        return viewGhost;
-      case "secondary":
-        return viewSecondary;
-      case "accent":
-        return viewAccent;
-      default:
-        return null;
-    }
-  }};
-  ${({ $form }) => {
-    switch ($form) {
-      case "brick":
-        return formBrick;
-      case "round":
-        return formRound;
-      default:
-        return null;
-    }
-  }};
 
-  ${({ onlyIcon, iconRight, iconLeft }) =>
-    onlyIcon
-      ? positionOnlyIcon
-      : iconRight
-      ? positionIconRight
-      : iconLeft
-      ? positionIconLeft
-      : positionDefault};
-  ${({ $size }) => {
-    switch ($size) {
-      case "xs":
-        return sizeXS;
-      case "s":
-        return sizeS;
-      case "m":
-        return sizeM;
-      case "l":
-        return sizeL;
-      case "xl":
-        return sizeXL;
-      default:
-        return null;
-    }
-  }};
-  ${({ $width }) => {
-    switch ($width) {
-      case "full":
-        return css`
-          width: 100%;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-        `;
-      default:
-        return null;
-    }
-  }};
+  ${({ $view }) => View[$view]};
+  ${({ $form }) => Form[$form]};
+  ${({ $size }) => Size[$size]};
+  ${({ $width }) => Width[$width]}
+  ${({ $onlyIcon, $size }) =>
+    $onlyIcon &&
+    css`
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      width: ${RoundIcon[$size]};
+    `}
+    ${({ $iconRight }) => $iconRight && positionIconRight}
+    ${({ $iconLeft }) => $iconLeft && positionIconLeft}
 `;

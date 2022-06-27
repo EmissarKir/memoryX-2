@@ -1,5 +1,5 @@
 import React from "react";
-import { InvalidText, StyledTextareaField } from "../../../styles/styles";
+import { SInvalidText, STextareaField } from "../../../styles/styles";
 
 interface TextAreaFieldProps {
   label?: string;
@@ -25,7 +25,7 @@ export const TextAreaField = ({
   onChange,
 }: TextAreaFieldProps) => {
   return (
-    <StyledTextareaField lh={lh}>
+    <STextareaField lh={lh}>
       <div>
         <label htmlFor={name}> {label}</label>
         <div>
@@ -38,9 +38,9 @@ export const TextAreaField = ({
             placeholder={placeholder}
             autoFocus={autoFocus}
           />
-          {error && <InvalidText>{error}</InvalidText>}
+          {error && <SInvalidText>{error}</SInvalidText>}
         </div>
       </div>
-    </StyledTextareaField>
+    </STextareaField>
   );
 };
