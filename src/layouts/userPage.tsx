@@ -46,7 +46,12 @@ const UserPage: FC = () => {
             type="text"
             autoFocus
           />
-          <TextFiled placeholder="Введите email" name="email" type="email" />
+          <TextFiled
+            placeholder="Введите email"
+            name="email"
+            type="email"
+            readonly
+          />
           <TextFiled
             placeholder="Количество повторений"
             name="maxCountRepeat"

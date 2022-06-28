@@ -1,47 +1,31 @@
-# Приложение для обучения по карточкам 2.0
+# Приложение для обучения по карточкам 2.0 - MemoryX
 
-Stack
-TypeScript, Redux-Toolkit, axios,
+### Stack
 
-## Available Scripts
+React 18, TypeScript, Redux-Toolkit, React-Router-Dom@6 Axios, Styled Components, Framer Motion, Firebase  
+[Демонстрация приложения](https://fir-memoryx-2.firebaseapp.com/)
 
-In the project directory, you can run:
+### В проекте реализовано:
 
-### `npm start`
+- авторизация / регистрация пользователя (в т.ч. обработка ошибок при вводе неверного логина/пароля или адрес почты уже занят)
+- валидация всех полей форм, где это важно и disabled кнопок. - Yup
+- адаптивная боковая панель (на мобильных скрыт, на декстопе с минимальной шириной с возможностью расширения) - анимация Framer Motion
+- переиспользуемый компонент Form - единый компонент для всех форм проекта (обработка событий, добавление общих props вложенным компонентам - React.Children.map). Позволяет уменьшить колиечество props у вложенных компонентов. Перекрывая все потребности проекта нет необходимости использовать сторонние библиотеки.
+- переиспользуемый компонент Button - типизированный компонент для всех кнопок и ссылок проека. Реализована возможность изменения размеров, вида, формы, ширины, наличие иконок: справа/слева от теста / только одна иконка. При этом позволяя компоненту быть семантически верным (если кнопка,то тэг "button", если ссылка, то тэг "a")
+- переиспользуемый компонент Text - так же как и Button
+- отзывчивая верстка, которая позволяет комфортно позволяет использовать приложение на небольших экранах (в т.ч. таблицы)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### возможности неавторизованного пользователя. Демонстрация базовых возможностей приложения:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- доступен 1 тест-образец с 4 вопросами
+- доступен режим "ТЕСТ" (без возможности изменения статуса вопроса)
 
-### `npm test`
+#### возможности Авторизованного пользователя:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- доступно создание своих сборников вопросов
+- создание / редактирование / удаление вопросов в сборниках
+- доступен режим "ТЕСТ". Здесь доступны только вопросы со статусом "В работе" выбранного сборника. При подтверждении, что вопрос понятен и выучен, вопросу добавляется 1 балл. При достижении 5 баллов статус вопроса меняется на "Завершен" и вопрос больше не доступен в режиме "ТЕСТ".
+- порог для лимита правильных ответов для вопроса меняется в профиле Пользователя
+- также статус вопроса, при необходимости, меняется при редактировании вопроса
+- редактирование профиля Пользователя (изменение аватара / никнейма / лимита правильных ответов)
+- поиск по вопросам и ответам выбранного сборника

@@ -55,8 +55,10 @@ export const STextField = styled.div<PropsStyled>`
     &:focus {
       outline: ${({ theme }) => `1px solid ${theme.colors.accentDark}`};
     }
-    &:disabled {
+    &:disabled,
+    :read-only {
       opacity: 0.5;
+      outline: none;
     }
   }
 `;

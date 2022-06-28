@@ -19,6 +19,7 @@ interface ITextFieldProps {
   margin?: string;
   padding?: string;
   autoFocus?: boolean;
+  readonly?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -36,6 +37,7 @@ export function TextFiled({
   margin,
   padding,
   autoFocus,
+  readonly,
 }: ITextFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
@@ -59,6 +61,7 @@ export function TextFiled({
           placeholder={placeholder}
           onChange={onChange}
           autoFocus={autoFocus}
+          readOnly={readonly}
           disabled={disabled}
         />
         {type === "password" && (
